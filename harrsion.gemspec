@@ -28,10 +28,18 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 1.10'
+  spec.add_development_dependency 'guard-bundler'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'guard'
   spec.add_development_dependency 'guard-rspec'
   spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'guard-rubocop'
+  spec.add_development_dependency 'reek'
+  #spec.add_development_dependency 'guard-reek', git: 'git://github.com/pericles/guard-reek.git'
+  spec.add_development_dependency 'flay'
+  #spec.add_development_dependency 'guard-flay'
+  spec.add_development_dependency 'flog'
+  #spec.add_development_dependency 'guard-flog'
 end

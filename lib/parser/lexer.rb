@@ -9,11 +9,11 @@ module Parser
 
     matches = lambda { |pattern, c| pattern.include? c }
 
-    @space = matches.curry.call(" \t\n\r").dup.freeze 
-    @punctuation = matches.curry.call("()[]{}").dup.freeze 
-    @symbolic = matches.curry.call("~`!@#%$^&*-+=").dup.freeze 
-    @numeric = matches.curry.call("0123456789").dup.freeze 
-    @alpanumeric = matches.curry.call("abcdefghijklmnopqrstuvwxyz_'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789").dup.freeze 
+    @space = matches.curry.call(" \t\n\r").dup.freeze
+    @punctuation = matches.curry.call("()[]{}").dup.freeze
+    @symbolic = matches.curry.call("~`!@#%$^&*-+=").dup.freeze
+    @numeric = matches.curry.call("0123456789").dup.freeze
+    @alpanumeric = matches.curry.call("abcdefghijklmnopqrstuvwxyz_'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789").dup.freeze
 
     def self.lexwhile(prop, inp)
       tokl = inp.split("").take_while { |c| prop.call(c) }.inject(:+)
