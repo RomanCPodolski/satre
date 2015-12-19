@@ -14,7 +14,7 @@ module Harrsion
       @string = s.dup.freeze
       @p = p.dup.freeze
       # super p.a + ' ∃' + @string
-      super "#{@p} Forall: #{@string}"
+      super "(#{@p} Forall: #{@string})"
     end
 
     def eval(*)

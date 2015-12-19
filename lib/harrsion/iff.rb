@@ -14,7 +14,7 @@ module Harrsion
       @p = p.dup.freeze
       @q = q.dup.freeze
       # super @p.a + " ⇔ " + @q.a
-      super "#{@p} <=> #{@q}"
+      super "(#{@p} <=> #{@q})"
     end
 
     def eval(v)

@@ -30,37 +30,52 @@ module Harrsion
 
   class FormulaParser < Parser
     class << self
-      def parse_formula(inp)
+      def parse_formula
         lambda do |inp|
-          e1, i1 = parse_not(inp)
+          e1, i1 = parse_iff(inp)
           if i1[0] == '<=>'
             e2, i2 = parse_formula.call(i1.drop(1))
+            return Imp.new(e1,e2), i2
           end
+          return e1, i1
         end
       end
 
       def parse_not(inp)
-        e1, i1 = parse_atom(inp)
-        if i1.first == '~'
-          e2, i2 = parse_formula.call(i1.drop(1))
+        if inp.first == '~'
+          e1, i1 = parse_atom(inp.drop(1))
+          return Not.new(e1), i1
+        else
+          e1, i1 = parse_atom(inp)
+          return e1, i1
         end
-        return e1, i1
-      #end
+      end
 
       def parse_and(inp)
-        fail 'not yet implemented'
+        e1, i1 = parse_or(inp)
+        if i1[0] == "\\/"
+          e2, i2 = parse_formula.call(i1.drop(1))
+          return And.new(e1,e2), i2
+        end
+        return e1, i1
       end
 
       def parse_or(inp)
-        fail 'not yet implemented'
+        e1, i1 = parse_not(inp)
+        if i1[0] == "/\\"
+          e2, i2 = parse_formula.call(i1.drop(1))
+          return Or.new(e1, e2), i2
+        end
+        return e1, i1
       end
 
       def parse_iff(inp)
-        fail 'not yet implemented'
-      end
-
-      def parse_imp(inp)
-        fail 'not yet implemented'
+        e1, i1 = parse_and(inp)
+        if i1[0] == "=>"
+          e2, i2 = parse_formula.call(i1.drop(1))
+          return Iff.new(e1, e2), i2
+        end
+        return e1, i1
       end
 
       def parse_atom(inp)
@@ -73,7 +88,7 @@ module Harrsion
             fail(ExpressionError, 'Expected closing bracket')
           end
         else
-          Atom.new(inp[0])
+          return Atom.new(inp[0]), inp.drop(1)
         end
       end
 

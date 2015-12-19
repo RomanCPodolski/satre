@@ -3,15 +3,15 @@
 module Harrsion
   # A propositional formula
   class Formula
-    attr_reader :a
+    attr_reader :base
 
-    def initialize(a)
-      fail(ArgumentError, 'Argument must be a String') unless a.is_a?(String)
-      @a = a.dup.freeze
+    def initialize(base)
+      fail(ArgumentError, 'Argument must be a String') unless base.is_a?(String)
+      @base = base.dup.freeze
     end
 
     def to_s
-      a
+      base
     end
 
     def eval(v)

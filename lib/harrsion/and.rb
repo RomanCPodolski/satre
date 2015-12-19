@@ -13,7 +13,7 @@ module Harrsion
       fail(ArgumentError, 'Argument must be a Formula') unless q.is_a?(Formula)
       @p = p.dup.freeze
       @q = q.dup.freeze
-      super "#{@p} /\\ #{@q}"
+      super "(#{@p} /\\ #{@q})"
     end
 
     def eval(v)
