@@ -6,12 +6,15 @@ module Harrsion
   # A propositional 'True' value
   class True < Formula
     def initialize
-      # super '⊤'
-      super 'True'
+      super '⊤'
     end
 
-    def eval(v)
+    def eval(_valudation)
       true
+    end
+
+    def atoms
+      []
     end
 
     def self.parse(e)

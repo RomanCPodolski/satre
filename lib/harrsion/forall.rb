@@ -17,7 +17,7 @@ module Harrsion
       super "(#{@p} Forall: #{@string})"
     end
 
-    def eval(*)
+    def eval(_valudation)
       fail 'not implemented'
     end
 

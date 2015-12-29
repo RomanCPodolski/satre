@@ -10,11 +10,15 @@ module Harrsion
     def initialize(p)
       fail(ArgumentError, 'Argument must be a Formula') unless p.is_a?(Formula)
       @p = p.dup.freeze
-      super "~(#{@p})"
+      super "¬#{@p}"
     end
 
-    def eval(v)
-      not p.eval(v)
+    def eval(valudation)
+      not p.eval(valudation)
+    end
+
+    def atoms
+      p.atoms || []
     end
 
     def self.parse(e)

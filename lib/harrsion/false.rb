@@ -9,8 +9,12 @@ module Harrsion
       super 'False'
     end
 
-    def eval(*)
+    def eval(_valudation)
       false
+    end
+
+    def atoms
+      []
     end
 
     def self.parse(e)

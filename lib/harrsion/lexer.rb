@@ -16,7 +16,7 @@ module Harrsion
       end
 
       def symbolic?
-        self.matches.curry.call("~`!@#%$^&*-+<=>").dup.freeze
+        self.matches.curry.call("~`!@#%$^&*-+<=>\\/").dup.freeze
       end
 
       def numeric?

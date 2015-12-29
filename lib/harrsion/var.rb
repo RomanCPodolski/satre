@@ -9,7 +9,7 @@ module Harrsion
       super "Var \"#{s}\""
     end
 
-    def eval(v)
+    def eval(_valudation)
       fail 'not implemented'
     end
 

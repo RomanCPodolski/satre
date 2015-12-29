@@ -53,7 +53,7 @@ module Harrsion
 
       def parse_and(inp)
         e1, i1 = parse_or(inp)
-        if i1[0] == "\\/"
+        if i1[0] == '/\\'
           e2, i2 = parse_formula.call(i1.drop(1))
           return And.new(e1,e2), i2
         end
@@ -62,7 +62,7 @@ module Harrsion
 
       def parse_or(inp)
         e1, i1 = parse_not(inp)
-        if i1[0] == "/\\"
+        if i1[0] == '\\/'
           e2, i2 = parse_formula.call(i1.drop(1))
           return Or.new(e1, e2), i2
         end
@@ -71,7 +71,7 @@ module Harrsion
 
       def parse_iff(inp)
         e1, i1 = parse_and(inp)
-        if i1[0] == "=>"
+        if i1[0] == '=>'
           e2, i2 = parse_formula.call(i1.drop(1))
           return Iff.new(e1, e2), i2
         end
@@ -92,8 +92,22 @@ module Harrsion
         end
       end
 
+      # FIXME: Ich bin mir nicht sicher ob das so stimmt
       def parse(inp)
         make_parser.curry.call(parse_formula).call(inp)
+      end
+
+      def eval(fm, valudation)
+        case fm.class
+        when False then false
+        when True then true
+        when Atom then valudation.call(fm.base)
+        when Not then not (eval(fm.p, valudation))
+        when And then eval(fm.p, valudation) and (eval(fm.q, valudation))
+        when Or then eval(fm.p, valudation) or (eval(fm.q, valudation))
+        when Imp then not(eval(fm.p, valudation)) or (eval(fm.q, valudation))
+        when Iff then (eval(fm.p, valudation) == (eval(fm.q, valudation)))
+        end
       end
     end
   end
@@ -145,4 +159,3 @@ module Harrsion
 
   end
 end
-

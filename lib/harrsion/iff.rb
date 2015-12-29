@@ -14,11 +14,17 @@ module Harrsion
       @p = p.dup.freeze
       @q = q.dup.freeze
       # super @p.a + " ⇔ " + @q.a
-      super "(#{@p} <=> #{@q})"
+      super "(#{@p} ⇔ #{@q})"
     end
 
-    def eval(v)
-      p.eval(v) == q.eval(v)
+    def eval(valudation)
+      p.eval(valudation) == q.eval(valudation)
+    end
+
+    def atoms
+      atoms = p.atoms + q.atoms
+      #atoms.uniq {|a| a.base} || []
+      atoms.uniq || []
     end
 
     def self.parse(e)

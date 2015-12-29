@@ -14,16 +14,48 @@ module Harrsion
       base
     end
 
-    def eval(v)
+    def atoms
+      fail 'abstract'
+    end
+
+    def on_all_valuations?
+      valudation = Hash[self.atoms.map { |x| [x, true] }]
+      truthtable = [valudation]
+      valudation.length.times do |i|
+        v = {}
+        (valudation.length - i).times do |j| 
+          v = valudation.dup
+          v[v.keys[j]] = ! v[v.keys[j]]
+          truthtable << v
+        end
+        valudation = v
+      end
+      truthtable.all? { |v| self.eval(v) }
+    end
+
+    def eval(_valudation)
+      fail 'abstract'
+    end
+
+    def tautology?
+      # TODO: now
       fail 'not yet implemented'
     end
 
-    def self.parse(e)
+    def unsatifiable?
+      # TODO: now
       fail 'not yet implemented'
     end
 
-    def simplify
+    def satifiable?
+      # TODO: now
       fail 'not yet implemented'
     end
+
+    def entails?
+      # TODO: now
+      fail 'not yet implemented'
+    end
+
   end
 end

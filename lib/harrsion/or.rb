@@ -13,12 +13,17 @@ module Harrsion
       fail(ArgumentError, 'Argument must be a Formula') unless q.is_a?(Formula)
       @p = p.dup.freeze
       @q = q.dup.freeze
-      # super @p.a + " ∨ " + @q.a
-      super "(#{@p} \\/ #{@q})"
+      super "(#{@p} ∨ #{@q})"
     end
 
-    def eval(v)
-      p.eval(v) or q.eval(v)
+    def eval(valudation)
+      p.eval(valudation) or q.eval(valudation)
+    end
+
+    def atoms
+      atoms = p.atoms + q.atoms
+      #atoms.uniq { |a| a.base } || []
+      atoms.uniq || []
     end
 
     def self.parse(e)
