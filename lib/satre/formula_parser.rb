@@ -1,3 +1,13 @@
+require 'satre/entails'
+require 'satre/imp'
+require 'satre/iff'
+require 'satre/atom'
+require 'satre/not'
+require 'satre/and'
+require 'satre/or'
+require 'satre/false'
+require 'satre/true'
+
 module Satre
   class FormulaParser < Parser
     class << self

@@ -28,10 +28,9 @@ GEM
       guard (~> 2.2)
       guard-compat (~> 1.1)
     guard-compat (1.2.1)
-    guard-rspec (4.6.4)
-      guard (~> 2.1)
-      guard-compat (~> 1.1)
-      rspec (>= 2.99.0, < 4.0)
+    guard-minitest (2.4.4)
+      guard-compat (~> 1.2)
+      minitest (>= 3.0)
     guard-rubocop (1.2.0)
       guard (~> 2.0)
       rubocop (~> 0.20)
@@ -40,6 +39,7 @@ GEM
       rb-inotify (>= 0.9)
     lumberjack (1.0.9)
     method_source (0.8.2)
+    minitest (5.8.3)
     nenv (0.2.0)
     notiffany (0.0.8)
       nenv (~> 0.1)
@@ -88,10 +88,10 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.10)
-  guard
   guard-bundler
-  guard-rspec
+  guard-minitest
   guard-rubocop
+  minitest
   pry
   rake (~> 10.0)
   rspec
