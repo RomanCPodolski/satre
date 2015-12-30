@@ -5,9 +5,9 @@
 I think therefore I am.
   
 Satre is a library for proportional and first order logic.
-It was inspired by the book 'Handbook of practical logic and automated reasoning' by Harrison, J (2009).
+It was inspired by the book ['Handbook of practical logic and automated reasoning' by Harrison, J (2009)](http://www.cambridge.org/us/academic/subjects/computer-science/programming-languages-and-applied-logic/handbook-practical-logic-and-automated-reasoning).
   
-This project originated at the Technical university munich as a students project in the lecture 'Basics of Artificial Intelligence'.
+This project originated at the [Technical University Munich](http://www.tum.de) as a students project in the lecture ['Basics of Artificial Intelligence'](http://www6.in.tum.de/Main/TeachingWs2014KuenstlicheIntelligenz).
 
 ## Installation
 
