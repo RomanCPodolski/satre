@@ -1,9 +1,9 @@
-require 'harrsion/expression'
+require 'satre/expression'
 
 # A parster for propositional statements
 # and simple mathematical expressions
-module Harrsion
-  class Mul < Expression
+module Satre
+  class Add < Expression
     attr_reader :p
     attr_reader :q
 
@@ -12,19 +12,15 @@ module Harrsion
       fail(ArgumentError, 'q must be a expression') unless p.is_a?(Expression)
       @p = p.dup.freeze
       @q = q.dup.freeze
-      super "Mul(#{@p},#{@q})"
+      super "Add (#{@p},#{@q})"
     end
 
     def eval
-      p.eval * q.eval
+      p.eval + q.eval
     end
 
     def self.parse(e)
-      e1, i1 = Expression.parse(inp)
-      if e1[-1] == '*'
-        _e2,i2 = parse_expression(i1)
-        return Mul.new(e1,i1), i2
-      end
+      fail 'not yet implemented'
     end
   end
 end

@@ -46,6 +46,3 @@ puts problem_4_2
 
 puts "4.3"
 puts kb
-
-require 'pry'
-Pry.start

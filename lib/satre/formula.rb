@@ -1,7 +1,4 @@
-# A parster for propositional statements
-# and simple mathematical expressions
-module Harrsion
-  # A propositional formula
+module Satre
   class Formula
     attr_reader :base
 
@@ -38,23 +35,19 @@ module Harrsion
     end
 
     def tautology?
-      # TODO: now
-      fail 'not yet implemented'
+      on_all_valuations?
     end
 
     def unsatifiable?
-      # TODO: now
-      fail 'not yet implemented'
+      Not.new(self).tautology?
     end
 
     def satifiable?
-      # TODO: now
-      fail 'not yet implemented'
+      not unsatifiable?
     end
 
-    def entails?
-      # TODO: now
-      fail 'not yet implemented'
+    def entails?(other)
+      Imp.new(self, other).tautology?
     end
 
   end

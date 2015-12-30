@@ -1,6 +1,4 @@
-# A parster for propositional statements
-# and simple mathematical expressions
-module Harrsion
+module Satre
   class Lexer
     class << self
       def matches
@@ -16,7 +14,7 @@ module Harrsion
       end
 
       def symbolic?
-        self.matches.curry.call("~`!@#%$^&*-+<=>\\/").dup.freeze
+        self.matches.curry.call("~`!@#%$^&*-+<=>\\/|").dup.freeze
       end
 
       def numeric?

@@ -1,8 +1,8 @@
-require 'harrsion/expression'
+require 'satre/expression'
 
 # A parster for propositional statements
 # and simple mathematical expressions
-module Harrsion
+module Satre
   class Const < Expression
     attr_reader :i
 

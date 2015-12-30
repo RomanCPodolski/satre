@@ -1,10 +1,10 @@
-require 'harrsion/formula'
+require 'satre/formula'
 
 # A parster for propositional statements
 # and simple mathematical expressions
-module Harrsion
+module Satre
   # A propositional logic 'and' value
-  class And < Formula
+  class Entails < Formula
     attr_reader :p
     attr_reader :q
 
@@ -13,21 +13,17 @@ module Harrsion
       fail(ArgumentError, 'Argument must be a Formula') unless q.is_a?(Formula)
       @p = p.dup.freeze
       @q = q.dup.freeze
-      super "(#{@p} ∧ #{@q})"
+      super "(#{@p} ⊨ #{@q})"
     end
 
-    def eval(v)
-      p.eval(v) && q.eval(v)
+    def eval(*)
+      p.entails?(q) 
     end
 
     def atoms
       atoms = p.atoms + q.atoms
-      #atoms.uniq { |a| a.base } || []
       atoms.uniq || []
     end
 
-    def self.parse(e)
-      fail 'not yet implemented'
-    end
   end
 end
