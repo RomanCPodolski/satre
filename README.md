@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/RomanCPodolski/satre.svg)](https://travis-ci.org/RomanCPodolski/satre)
+[![Code Climate](https://codeclimate.com/github/RomanCPodolski/satre/badges/gpa.svg)](https://codeclimate.com/github/RomanCPodolski/satre)
+[![Test Coverage](https://codeclimate.com/github/RomanCPodolski/satre/badges/coverage.svg)](https://codeclimate.com/github/RomanCPodolski/satre/coverage)
 
 # Satre
 
