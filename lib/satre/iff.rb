@@ -10,7 +10,6 @@ module Satre
       fail(ArgumentError, 'Argument must be a Formula') unless q.is_a?(Formula)
       @p = p.dup.freeze
       @q = q.dup.freeze
-      # super @p.a + " ⇔ " + @q.a
       super "(#{@p} → #{@q})"
     end
 

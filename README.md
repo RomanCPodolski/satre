@@ -2,9 +2,9 @@
 
 # Satre
 
-I think therefore I am.
+Congito ergo sum - I think therefore I am.
   
-Satre is a library for proportional and first order logic.
+Satre is a library for proportional and first order logic problem solving in ruby.
 It was inspired by the book ['Handbook of practical logic and automated reasoning' by Harrison, J (2009)](http://www.cambridge.org/us/academic/subjects/computer-science/programming-languages-and-applied-logic/handbook-practical-logic-and-automated-reasoning).
   
 This project originated at the [Technical University Munich](http://www.tum.de) as a students project in the lecture ['Basics of Artificial Intelligence'](http://www6.in.tum.de/Main/TeachingWs2014KuenstlicheIntelligenz).
@@ -27,7 +27,36 @@ Or install it yourself as:
 
 ## Usage
 
-TODO
+For examples look at the file `bin/exercise`.
+The see the results of the exercise run `./bin/exercise` from the root directory of this project.
+
+To embed proportional logic solving in your project one can use `String#to_formula`, on a well formed proportional logic string.
+Possible operations are
+
+  * True value `"True"`
+  * False value `"False"`
+  * Atomic logical variable `"A"` (or any other alphanumeric combination)
+  * logical negation `"~A"`
+  * logical and `"A /\\ B"`
+  * logical or `"A \\/ B"`
+  * Implies `"A <=> B"`
+  * If and only if `"A => B"`
+  * Entails `"A |= B"`
+
+An example
+
+```ruby
+formula = '(Fire => Smoke) /\\ Fire /\\ ~Smoke'.to_formula 
+```
+
+To evaluate a formula use `Satre::Formula#eval`
+
+```ruby
+formula = '(Fire => Smoke) /\\ Fire /\\ ~Smoke'.to_formula 
+formula.eval 'Fire' => true, 'Smoke' => true
+```
+
+For further information see the doc.
 
 ## Development
 
@@ -41,7 +70,7 @@ To release a new version, update the version number in `version.rb`, and then ru
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/RomanCPodolski/satre.
-This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 

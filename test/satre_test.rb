@@ -51,7 +51,7 @@ class SatreTest < Minitest::Unit::TestCase
   end
 
   def test_exercise_4_3_1
-    skip "I first need to understand what a knights and knaves"
+    skip "I first need to understand what are knights and knaves"
   end
 
 end
