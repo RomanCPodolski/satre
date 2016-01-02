@@ -1,5 +1,11 @@
 module Satre
   class Formula
+    include Comparable
+    
+    def <=>(other)
+      base <=> other.base
+    end
+
     attr_reader :base
 
     def initialize(base)

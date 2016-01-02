@@ -5,12 +5,7 @@ require 'satre/formula'
 module Satre
   # A propositional 'atomic' value
   class Atom < Formula
-    include Comparable
     
-    def <=>(other)
-      base <=> other.base
-    end
-
     attr_reader :base
 
     def initialize(base)

@@ -23,7 +23,7 @@ class AtomTest < Minitest::Test
 
   def test_eval
     assert(a.eval(a: true))
-    assert(! a.eval(a: false))
+    refute(a.eval(a: false))
   end
 
   def test_atoms
