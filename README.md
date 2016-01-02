@@ -56,6 +56,8 @@ formula = '(Fire => Smoke) /\\ Fire /\\ ~Smoke'.to_formula
 formula.eval 'Fire' => true, 'Smoke' => true
 ```
 
+Further are provided `Satre::Formula#tauntolgy?`,`Satre::Formula#satisfiable?`,`Satre::Formula#unsatisfiable?`
+
 For further information see the doc.
 
 ## Development
