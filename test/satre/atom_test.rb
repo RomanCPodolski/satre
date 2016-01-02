@@ -9,6 +9,7 @@ class AtomTest < Minitest::Test
 
   def test_new
     assert_instance_of Atom, a
+    assert_kind_of Formula, a
   end
 
   def test_base

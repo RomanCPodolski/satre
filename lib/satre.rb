@@ -12,5 +12,3 @@ require 'satre/or'
 require 'satre/true'
 require 'satre/parser'
 require 'satre/formula_parser'
-require 'satre/expression_parser'
-

@@ -29,7 +29,6 @@ class AndTest < Minitest::Test
   end
 
   def test_atoms
-    # TODO: test exceptions
     assert_equal(['a','b'], a_and_b.atoms)
   end
 

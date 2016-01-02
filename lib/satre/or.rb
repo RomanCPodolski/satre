@@ -21,9 +21,5 @@ module Satre
       atoms = p.atoms + q.atoms
       atoms.uniq || []
     end
-
-    def self.parse(e)
-      fail 'not yet implemented'
-    end
   end
 end

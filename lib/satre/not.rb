@@ -11,7 +11,7 @@ module Satre
     end
 
     def eval(valudation)
-      not p.eval(valudation)
+      ! p.eval(valudation)
     end
 
     def atoms

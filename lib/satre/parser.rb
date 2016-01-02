@@ -7,7 +7,7 @@ module Satre
         lambda do |pfn, inp|
           expr, rest = pfn.call(Lexer.lex(inp))
           return expr if rest == []
-          fail(StandartError, 'Unparsed input')
+          fail(ParserError, 'Unparsed input')
         end
       end
     end
