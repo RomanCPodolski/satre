@@ -1,9 +1,33 @@
 require 'test_helper'
 
 class AtomTest < Minitest::Test
+  extend Minitest::Spec::DSL
 
-  def test_that_it_has_a_version_number
-    refute_nil ::Satre::VERSION
+  let(:a){Atom.new('a')}
+  let(:b){Atom.new('b')}
+  let(:c){Atom.new('c')}
+
+  def test_new
+    assert_instance_of Atom, a
+  end
+
+  def test_base
+    assert_equal('a', a.base)
+  end
+
+  def test_ufo_operator
+    assert_equal(-1, a <=> b)
+    assert_equal( 0, b <=> b)
+    assert_equal( 1, c <=> b)
+  end
+
+  def test_eval
+    assert(a.eval(a: true))
+    assert(! a.eval(a: false))
+  end
+
+  def test_atoms
+    assert_equal(a.atoms, ['a'])
   end
 
 end
