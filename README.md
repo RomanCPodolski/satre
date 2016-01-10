@@ -1,10 +1,11 @@
-[![Build Status](https://travis-ci.org/RomanCPodolski/satre.svg)](https://travis-ci.org/RomanCPodolski/satre)
-[![Code Climate](https://codeclimate.com/github/RomanCPodolski/satre/badges/gpa.svg)](https://codeclimate.com/github/RomanCPodolski/satre)
-[![Test Coverage](https://codeclimate.com/github/RomanCPodolski/satre/badges/coverage.svg)](https://codeclimate.com/github/RomanCPodolski/satre/coverage)
-
 # Satre
 
 Congito ergo sum - I think therefore I am.
+
+[![Build Status](https://travis-ci.org/RomanCPodolski/satre.svg)](https://travis-ci.org/RomanCPodolski/satre)
+[![Code Climate](https://codeclimate.com/github/RomanCPodolski/satre/badges/gpa.svg)](https://codeclimate.com/github/RomanCPodolski/satre)
+[![Test Coverage](https://codeclimate.com/github/RomanCPodolski/satre/badges/coverage.svg)](https://codeclimate.com/github/RomanCPodolski/satre/coverage)
+[![Issue Count](https://codeclimate.com/github/RomanCPodolski/satre/badges/issue_count.svg)](https://codeclimate.com/github/RomanCPodolski/satre)
   
 Satre is a library for proportional and first order logic problem solving in ruby.
 It was inspired by the book ['Handbook of practical logic and automated reasoning' by Harrison, J (2009)](http://www.cambridge.org/us/academic/subjects/computer-science/programming-languages-and-applied-logic/handbook-practical-logic-and-automated-reasoning).
@@ -65,7 +66,7 @@ For further information see the doc.
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies.
-Then, run `rake spec` to run the tests.
+Then, run `rake` to run the tests.
 You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`.

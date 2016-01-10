@@ -2,50 +2,8 @@
 
 require 'bundler/setup'
 require 'satre'
-require 'terminal-table'
 
 include Satre
-
-problem_4_1_1 = 'False |= True'.to_formula 
-problem_4_1_2 = 'True |= False'.to_formula 
-problem_4_1_3 = '(A /\\ B) |= (A <=> B)'.to_formula 
-problem_4_1_4 = '(A <=> B) |= A \\/ B'.to_formula 
-problem_4_1_5 = '(A <=> B) |= ~A \\/ B'.to_formula 
-
-problem_4_2_1 = 'Smoke => Smoke'.to_formula 
-problem_4_2_2 = '(Smoke => Fire) => (~Smoke => ~Fire)'.to_formula 
-problem_4_2_3 = 'Smoke \\/ Fire \\/ ~Fire'.to_formula 
-problem_4_2_4 = '(Fire => Smoke) /\\ Fire /\\ ~Smoke'.to_formula 
-
-problem_4_1 = Terminal::Table.new do |t|
-  t.title = 'Problem 4.1'
-  t.headings = ['', 'Formula', 'Result' ]
-  t << ['1.', problem_4_1_1, problem_4_1_1.eval ]
-  t << ['2.', problem_4_1_2, problem_4_1_2.eval ]
-  t << ['3.', problem_4_1_3, problem_4_1_3.eval ]
-  t << ['4.', problem_4_1_4, problem_4_1_4.eval ]
-  t << ['5.', problem_4_1_5, problem_4_1_5.eval ]
-end
-
-problem_4_2 = Terminal::Table.new do |t|
-  t.title = 'Problem 4.2'
-  t.headings = ['', 'Formula', 'tauntolgy?', 'satifiable?', 'unsatifiable?']
-  t << ['1.', problem_4_2_1, problem_4_2_1.tautology?, problem_4_2_1.satifiable?, problem_4_2_1.unsatifiable? ]
-  t << ['2.', problem_4_2_2, problem_4_2_2.tautology?, problem_4_2_2.satifiable?, problem_4_2_2.unsatifiable? ]
-  t << ['3.', problem_4_2_3, problem_4_2_3.tautology?, problem_4_2_3.satifiable?, problem_4_2_3.unsatifiable? ]
-  t << ['4.', problem_4_2_4, problem_4_2_4.tautology?, problem_4_2_4.satifiable?, problem_4_2_4.unsatifiable? ]
-end
-
-bsays = 'b <=> (a <=> ~a)'.to_formula
-csays = 'c <=> ~b'.to_formula
-
-kb = And.new(bsays, csays)
-
-puts problem_4_1
-puts problem_4_2
-
-puts "4.3"
-puts kb
 
 require 'pry'
 Pry.start

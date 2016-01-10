@@ -7,7 +7,7 @@ module Satre
     def initialize(p)
       fail(ArgumentError, 'Argument must be a Formula') unless p.is_a?(Formula)
       @p = p.dup.freeze
-      super "¬#{@p}"
+      super "(¬#{@p})"
     end
 
     def eval(valudation)

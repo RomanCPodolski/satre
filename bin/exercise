@@ -17,6 +17,18 @@ problem_4_2_2 = '(Smoke => Fire) => (~Smoke => ~Fire)'.to_formula
 problem_4_2_3 = 'Smoke \\/ Fire \\/ ~Fire'.to_formula 
 problem_4_2_4 = '(Fire => Smoke) /\\ Fire /\\ ~Smoke'.to_formula 
 
+bsays = 'b <=> (a <=> ~a)'.to_formula
+csays = 'c <=> ~b'.to_formula
+
+kb = And.new(bsays, csays)
+
+a_is_knight = Entails.new(kb,'a'.to_formula)
+a_is_knave  = Entails.new(kb,'~a'.to_formula)
+b_is_knight = Entails.new(kb,'b'.to_formula)
+b_is_knave  = Entails.new(kb,'~b'.to_formula)
+c_is_knight = Entails.new(kb,'c'.to_formula)
+c_is_knave  = Entails.new(kb,'~c'.to_formula)
+
 problem_4_1 = Terminal::Table.new do |t|
   t.title = 'Problem 4.1'
   t.headings = ['', 'Formula', 'Result' ]
@@ -27,6 +39,7 @@ problem_4_1 = Terminal::Table.new do |t|
   t << ['5.', problem_4_1_5, problem_4_1_5.eval ]
 end
 
+
 problem_4_2 = Terminal::Table.new do |t|
   t.title = 'Problem 4.2'
   t.headings = ['', 'Formula', 'tauntolgy?', 'satifiable?', 'unsatifiable?']
@@ -36,13 +49,22 @@ problem_4_2 = Terminal::Table.new do |t|
   t << ['4.', problem_4_2_4, problem_4_2_4.tautology?, problem_4_2_4.satifiable?, problem_4_2_4.unsatifiable? ]
 end
 
-bsays = 'b <=> (a <=> ~a)'.to_formula
-csays = 'c <=> ~b'.to_formula
+problem_4_3 = Terminal::Table.new do |t|
+  t.title = 'Problem 4.2'
+  t.headings = ['', 'a', 'b', 'c']
+  t << ['is knight?', a_is_knight.eval , b_is_knight.eval , c_is_knight.eval ]
+  t << ['is knave?', a_is_knave.eval , b_is_knave.eval , c_is_knave.eval ]
+end
 
-kb = And.new(bsays, csays)
 
 puts problem_4_1
-puts problem_4_2
+puts """I used a similar approach in my pencil-and-paper derivations
+first subtitude the entails a |= b with a /\\ ~b and then check this statement
+on unsatisfiability.
+"""
 
-puts "4.3"
-puts kb
+puts problem_4_2
+puts problem_4_3
+
+puts """This approach uses the entails functions to solve the puzzle,
+while in the exercise we substituded with the rules until clear statements were made."""

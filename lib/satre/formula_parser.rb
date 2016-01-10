@@ -1,12 +1,4 @@
-require 'satre/entails'
-require 'satre/imp'
-require 'satre/iff'
-require 'satre/atom'
-require 'satre/not'
-require 'satre/and'
-require 'satre/or'
-require 'satre/false'
-require 'satre/true'
+require 'satre/formula'
 
 module Satre
   class FormulaParser < Parser
@@ -25,7 +17,7 @@ module Satre
 
       def parse_imp(inp)
         e1, i1 = parse_iff(inp)
-        if i1[0] == '<=>'
+        if i1[0] == '=>'
           e2, i2 = parse_formula.call(i1.drop(1))
           return Imp.new(e1,e2), i2
         end
@@ -62,7 +54,7 @@ module Satre
 
       def parse_iff(inp)
         e1, i1 = parse_and(inp)
-        if i1[0] == '=>'
+        if i1[0] == '<=>'
           e2, i2 = parse_formula.call(i1.drop(1))
           return Iff.new(e1, e2), i2
         end
