@@ -5,23 +5,23 @@ require 'satre/formula'
 module Satre
   # A propositional logic 'and' value
   class Entails < Formula
-    attr_reader :p
-    attr_reader :q
+    attr_reader :knowledge_base
+    attr_reader :logical_consequence
 
-    def initialize(p,q)
-      fail(ArgumentError, 'Argument must be a Formula') unless p.is_a?(Formula)
-      fail(ArgumentError, 'Argument must be a Formula') unless q.is_a?(Formula)
-      @p = p.dup.freeze
-      @q = q.dup.freeze
-      super "(#{@p} ⊨ #{@q})"
+    def initialize(knowledge_base, logical_consequence)
+      fail(ArgumentError, 'Argument must be a Formula') unless knowledge_base.is_a?(Formula)
+      fail(ArgumentError, 'Argument must be a Formula') unless logical_consequence.is_a?(Formula)
+      @knowledge_base = knowledge_base.dup.freeze
+      @logical_consequence = logical_consequence.dup.freeze
+      super "(#{@knowledge_base} ⊨ #{@logical_consequence})"
     end
 
     def eval(*)
-      p.entails?(q) 
+      knowledge_base.entails?(logical_consequence) 
     end
 
     def atoms
-      atoms = p.atoms + q.atoms
+      atoms = knowledge_base.atoms + logical_consequence.atoms
       atoms.uniq || []
     end
 

@@ -10,8 +10,8 @@ class AndTest < Minitest::Test
   def test_new
     assert_instance_of(And, a_and_b)
     assert_kind_of(Formula, a_and_b)
-    assert_equal(a, a_and_b.p)
-    assert_equal(b, a_and_b.q)
+    assert_equal(a, a_and_b.left_conjunct)
+    assert_equal(b, a_and_b.right_conjunct)
     assert_equal('(a ∧ b)', a_and_b.base)
   end
 

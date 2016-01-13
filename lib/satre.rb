@@ -1,5 +1,4 @@
 require 'satre/version'
-require 'satre/expression'
 require 'satre/lexer'
 require 'satre/formula'
 require 'satre/parser'

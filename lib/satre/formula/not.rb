@@ -2,20 +2,20 @@ require 'satre/formula'
 
 module Satre
   class Not < Formula
-    attr_reader :p
+    attr_reader :literal
 
-    def initialize(p)
-      fail(ArgumentError, 'Argument must be a Formula') unless p.is_a?(Formula)
-      @p = p.dup.freeze
-      super "(¬#{@p})"
+    def initialize(literal)
+      fail(ArgumentError, 'Argument must be a Formula') unless literal.is_a?(Formula)
+      @literal = literal.dup.freeze
+      super "(¬#{@literal})"
     end
 
     def eval(valudation)
-      ! p.eval(valudation)
+      ! literal.eval(valudation)
     end
 
     def atoms
-      p.atoms || []
+      literal.atoms || []
     end
 
   end

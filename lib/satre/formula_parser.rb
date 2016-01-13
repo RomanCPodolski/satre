@@ -7,7 +7,7 @@ module Satre
       def parse_formula
         lambda do |inp|
           e1, i1 = parse_imp(inp)
-          if i1[0] == '|='
+          if i1[0] == '|=' or i1[0] == '⊨'
             e2, i2 = parse_formula.call(i1.drop(1))
             return Entails.new(e1,e2), i2
           end
@@ -17,7 +17,7 @@ module Satre
 
       def parse_imp(inp)
         e1, i1 = parse_iff(inp)
-        if i1[0] == '=>'
+        if i1[0] == '=>' or i1[0] == '→'
           e2, i2 = parse_formula.call(i1.drop(1))
           return Imp.new(e1,e2), i2
         end
@@ -25,7 +25,7 @@ module Satre
       end
       
       def parse_not(inp)
-        if inp.first == '~'
+        if inp.first == '~' or inp.first == '¬'
           e1, i1 = parse_atom(inp.drop(1))
           return Not.new(e1), i1
         else
@@ -36,7 +36,7 @@ module Satre
 
       def parse_and(inp)
         e1, i1 = parse_or(inp)
-        if i1[0] == '/\\'
+        if i1[0] == '/\\' or i1[0] == '∧'
           e2, i2 = parse_formula.call(i1.drop(1))
           return And.new(e1,e2), i2
         end
@@ -45,7 +45,7 @@ module Satre
 
       def parse_or(inp)
         e1, i1 = parse_not(inp)
-        if i1[0] == '\\/'
+        if i1[0] == '\\/' or  i1[0] == '∨'
           e2, i2 = parse_formula.call(i1.drop(1))
           return Or.new(e1, e2), i2
         end
@@ -54,7 +54,7 @@ module Satre
 
       def parse_iff(inp)
         e1, i1 = parse_and(inp)
-        if i1[0] == '<=>'
+        if i1[0] == '<=>' or i1[0] == '⇔'
           e2, i2 = parse_formula.call(i1.drop(1))
           return Iff.new(e1, e2), i2
         end

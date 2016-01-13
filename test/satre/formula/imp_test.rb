@@ -10,13 +10,13 @@ class ImpTest < Minitest::Test
   def test_new
     assert_instance_of Imp, a_imp_b
     assert_kind_of Formula, a_imp_b
-    assert_equal a, a_imp_b.p
-    assert_equal b, a_imp_b.q
-    assert_equal '(a ⇔ b)', a_imp_b.base
+    assert_equal a, a_imp_b.antendence
+    assert_equal b, a_imp_b.consequence
+    assert_equal '(a → b)', a_imp_b.base
   end
 
   def test_to_fomula
-    assert_equal a_imp_b, '(a <=> b)'.to_formula 
+    assert_equal a_imp_b, '(a => b)'.to_formula 
   end
 
   def test_eval

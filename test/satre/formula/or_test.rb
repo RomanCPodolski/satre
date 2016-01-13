@@ -10,8 +10,8 @@ class OrTest < Minitest::Test
   def test_new
     assert_instance_of Or, a_or_b
     assert_kind_of Formula, a_or_b
-    assert_equal a, a_or_b.p
-    assert_equal b, a_or_b.q
+    assert_equal a, a_or_b.left_disjunct
+    assert_equal b, a_or_b.right_disjunct
     assert_equal '(a ∨ b)', a_or_b.base
   end
 

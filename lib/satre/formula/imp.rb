@@ -2,23 +2,23 @@ require 'satre/formula'
 
 module Satre
   class Imp < Formula
-    attr_reader :p
-    attr_reader :q
+    attr_reader :antendence
+    attr_reader :consequence
 
-    def initialize(p,q)
-      fail(ArgumentError, "Argument must be a Formula p:#{p}") unless p.is_a?(Formula)
-      fail(ArgumentError, "Argument must be a Formula q:#{q}") unless q.is_a?(Formula)
-      @p = p.dup.freeze
-      @q = q.dup.freeze
-      super "(#{@p} → #{@q})"
+    def initialize(antendence, consequence)
+      fail(ArgumentError, "Argument must be a Formula p:#{p}") unless antendence.is_a?(Formula)
+      fail(ArgumentError, "Argument must be a Formula q:#{q}") unless consequence.is_a?(Formula)
+      @antendence = antendence.dup.freeze
+      @consequence = consequence.dup.freeze
+      super "(#{@antendence} → #{@consequence})"
     end
 
     def eval(valudation)
-      (! p.eval(valudation)) or (q.eval(valudation))
+      (! antendence.eval(valudation)) or (consequence.eval(valudation))
     end
 
     def atoms
-      atoms = p.atoms + q.atoms
+      atoms = antendence.atoms + consequence.atoms
       atoms.uniq || []
     end
   end

@@ -33,7 +33,7 @@ class SatreTest < Minitest::Test
   end
 
   def test_exercise_4_2_2
-    assert('(Smoke => Fire) => (~Smoke => ~Fire)'.to_formula.tautology?)
+    refute('(Smoke => Fire) => (~Smoke => ~Fire)'.to_formula.tautology?)
     assert('(Smoke => Fire) => (~Smoke => ~Fire)'.to_formula.satifiable?)
     refute('(Smoke => Fire) => (~Smoke => ~Fire)'.to_formula.unsatifiable?)
   end

@@ -12,11 +12,11 @@ class NotTest < Minitest::Test
   end
 
   def test_base
-    assert_equal '¬a', not_a.base
+    assert_equal '(¬a)', not_a.base
   end
 
-  def test_p
-    assert_equal a, not_a.p
+  def test_literal
+    assert_equal a, not_a.literal
   end
 
   def test_eval

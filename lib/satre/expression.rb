@@ -1,6 +1,0 @@
-require 'satre/expression/expression'
-require 'satre/expression/add'
-require 'satre/expression/const'
-require 'satre/expression/expression_parser'
-require 'satre/expression/mul'
-require 'satre/expression/var'
