@@ -5,41 +5,49 @@ module Satre
         lambda { |pattern, str| str.split("").all? { |c| pattern.include? c } }
       end
 
-      def space?
-        self.matches.curry.call(" \t\n\r").dup.freeze
+      def matches(pattern, str)
+        str.split("").all? { |c| pattern.include? c }
+      end
+      
+      def space?(str)
+        matches(" \t\n\r", str)
       end
 
-      def punctuation?
-        self.matches.curry.call("()[]{}").dup.freeze
+      def punctuation?(str)
+        matches("()[]{}", str)
       end
 
-      def symbolic?
-        self.matches.curry.call("~`!@#%$^&*-+<=>\\/|").dup.freeze
+      def symbolic?(str)
+        matches("~`!@#%$^&*-+<=>\\/|", str)
       end
 
-      def numeric?
-        self.matches.curry.call("0123456789").dup.freeze
+      def numeric?(str)
+        matches("0123456789", str)
       end
 
-      def alpanumeric?
-        self.matches.curry.call("abcdefghijklmnopqrstuvwxyz_'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789").dup.freeze
+      def alpanumeric?(str)
+        matches("abcdefghijklmnopqrstuvwxyz_'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", str)
+      end
+
+      def refute(*)
+        false
       end
 
       def lexwhile(prop, inp)
-        tokl = inp.split("").take_while { |c| prop.call(c) }.inject(:+)
-        tokl = "" if tokl.nil?
+        tokl = inp.split("").take_while { |c| self.send(prop, c) }.inject(:+)
+        tokl = "" if tokl.nil? 
         return tokl, inp[tokl.length..-1]
       end
 
       def lex(inp)
-        inp, rest = self.lexwhile(self.space?, inp)
+        inp, rest = self.lexwhile(:space?, inp)
         return [] if rest == "" || rest.nil?
         c = rest[0]
         cs = rest[1..-1]
-        prop =  if self.alpanumeric?.call(c) then self.alpanumeric?
-                elsif self.symbolic?.call(c) then self.symbolic?
-                else proc { false } end
-        toktl, rest = self.lexwhile prop, cs
+        prop =  if self.alpanumeric?(c) then :alpanumeric?
+                elsif self.symbolic?(c) then :symbolic?
+                else :refute end
+        toktl, rest = self.lexwhile(prop, cs)
         [c+toktl] + lex(rest)
       end
     end

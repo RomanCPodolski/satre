@@ -1,4 +1,5 @@
 require 'satre/lexer'
+require 'satre/errors'
 
 module Satre
   class Parser
@@ -6,8 +7,8 @@ module Satre
       def make_parser
         lambda do |pfn, inp|
           expr, rest = pfn.call(Lexer.lex(inp))
-          return expr if rest == []
-          fail(ParserError, 'Unparsed input')
+          fail(ParserError, "Unparsed input: #{rest}") unless rest == []
+          return expr
         end
       end
     end

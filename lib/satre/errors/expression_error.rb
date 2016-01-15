@@ -1,0 +1,2 @@
+class ExpressionError < StandardError
+end
