@@ -9,7 +9,7 @@ module Satre
     attr_reader :base
 
     def initialize(base)
-      fail(ArgumentError, 'Argument must be a String') unless base.is_a?(String)
+      fail(ArgumentError, "Argument must be a String: #{base}") unless base.is_a?(String)
       @base = base.dup.freeze
     end
 
@@ -53,7 +53,6 @@ module Satre
     end
 
     def entails?(other)
-      #Imp.new(self, other).tautology?
       And.new(self, Not.new(other)).unsatifiable?
     end
 

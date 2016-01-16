@@ -78,7 +78,7 @@ module Satre
       end
 
       def parse(inp)
-        make_parser.curry.call(parse_formula).call(inp)
+        method(:make_parser).curry.call(parse_formula).call(inp)
       end
 
     end

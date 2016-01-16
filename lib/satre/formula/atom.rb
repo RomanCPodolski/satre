@@ -6,10 +6,11 @@ module Satre
   # A propositional 'atomic' value
   class Atom < Formula
     
-    attr_reader :base
+    attr_reader :value
 
-    def initialize(base)
-      super base
+    def initialize(value)
+      @value = value.dup.freeze
+      super value.to_s
     end
 
     def eval(valudation)
