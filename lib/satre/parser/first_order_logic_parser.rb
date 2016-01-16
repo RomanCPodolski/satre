@@ -12,7 +12,7 @@ module Satre
       # opupdate: function -> modifies the function appropriately when an new item is parsed.
       ###
       def parse_ginfix(opsym, opupdate, sof, subparser, inp)
-        puts 'parse_ginfix'
+        puts "parse_ginfix #{opsym}, #{opupdate}, #{sof} #{subparser}, #{inp}"
         e1, inp1 = subparser.call(inp)
         if inp1 != [] && inp1[0] == opsym
           parse_ginfix(opsym, opupdate, opupdate.curry.call(sof, e1), subparser, inp1[1..-1])
@@ -24,16 +24,16 @@ module Satre
       # parse a list of items and combine them in a left associated manner
       # returns a lambda
       def parse_left_infix(opsym, opcon)
-        puts 'parse_left_infix'
-        opupdate = ->(f,e1,e2) {puts f; opcon.call(f.call(e1), e2) }
+        puts "parse_left_infix #{opsym} #{opcon}"
+        opupdate = ->(f, e1 ,e2) {opcon.call(f.call(e1), e2) }
         sof = ->(x) { x }
-        method(:parse_ginfix).cury.call(opsym, opupdate, sof)
+        method(:parse_ginfix).curry.call(opsym, opupdate, sof)
       end
 
       # parse a list of items and combine them in a right associated manner
       # returns a lambda
       def parse_right_infix(opsym, opcon)
-        puts 'parse_right_infix'
+        puts "parse_right_infix #{opsym} #{opcon}"
         opupdate = ->(f,e1,e2) { f.call(opcon.call(e1,e2)) }
         sof = ->(x) { x }
         method(:parse_ginfix).curry.call(opsym, opupdate, sof)
@@ -88,7 +88,7 @@ module Satre
       # ifn: restricted parser for infix atoms
       # afn: more general parser for arbitary atoms
       def parse_atomic_formula(ifn, afn, vs, inp)
-        puts 'parse_atomic_formula'
+        puts "parse_atomic_formula #{vs} #{inp}"
         fail(ArgumentError, 'Expected an formula at end of input') if inp == []
         head = inp.first
         rest = inp[1..-1]
@@ -116,37 +116,40 @@ module Satre
       # vs: set of bounds variables in the current scope
       # inp: current input 
       def parse_atomic_term(vs, inp)
-        puts 'parse_atomic_term'
+        puts "parse_atomic_term #{vs} #{inp}"
         fail(ArgumentError, 'Term expected') if inp == []
         head = inp.first
         rest = inp[1..-1]
-        if head == '('
-          parse_bracketed(parse_term(vs), ")", rest)
-        elsif head == '-'
-          papply( ->(t) { Term.new("-", [t]) }, parse_atomic_term(vs, rest) )
-        elsif Lexer.alphanumeric?(head) && rest[0] == '('
+        puts "#{head} #{rest}"
+        puts head == '('
+        puts head == '-'
+        puts Lexer.alpanumeric?(head)
+        puts rest[0] == "("
+        puts Lexer.alpanumeric?(head) && rest[0] == '('
+        if head == '(' then parse_bracketed(parse_term(vs), ")", rest)
+        elsif head == '-' then papply( ->(t) { Function.new("-", [t])}, parse_atomic_term(vs, rest) )
+        elsif Lexer.alpanumeric?(head) && rest[0] == '('
           rest = rest[1..-1]
           if rest[0] == ')' 
-            papply( -> { Term.new(f, []) }, rest[1..-1]  )
+            papply( -> { Function.new(f, []) }, rest[1..-1]  )
           else
-            papply(->(args) { Term.neq(f, args) }, parse_bracketed(parse_list(',', parse_term(vs)), ')', rest))
+            papply(->(args) { Function.neq(f, args) }, parse_bracketed(parse_list(',', parse_term(vs)), ')', rest))
           end
         else
-          a = if is_const_name(head) && !vs.include?(head) then Fun.new(head,[]) else Var.new(head) end
+          a = if is_const_name(head) && !vs.include?(head) then Function.new(head,[]) else Variable.new(head) end
           return a, rest
         end
       end
 
-
       # build up parsing of general terms via parsing of the various infix operations
       def parse_term(vs, inp)
-        puts 'parse_term'
-        colon = parse_right_infix("::", ->(e1,e2) { Function.new('::', [e1,e2]) })
-        plus = parse_right_infix("+", ->(e1,e2) { Function.new('+', [e1,e2]) })
-        minus = parse_left_infix("-", ->(e1,e2) { Function.new('-', [e1,e2]) })
-        mul = parse_right_infix("*", ->(e1,e2) { Function.new('*', [e1,e2]) })
-        div = parse_left_infix("/", ->(e1,e2) { Function.new('/', [e1,e2]) })
-        power = parse_left_infix("^", ->(e1,e2) { Function.new('^', [e1,e2]) })
+        puts "parse_term #{vs} #{inp}"
+        colon = parse_right_infix("::", ->(e1,e2) { Function.new('::', [e1, e2]) })
+        plus = parse_right_infix("+", ->(e1,e2) { Function.new('+', [e1, e2]) })
+        minus = parse_left_infix("-", ->(e1,e2) { Function.new('-', [e1, e2]) })
+        mul = parse_right_infix("*", ->(e1,e2) { Function.new('*', [e1, e2]) })
+        div = parse_left_infix("/", ->(e1,e2) { Function.new('/', [e1, e2]) })
+        power = parse_left_infix("^", ->(e1,e2) { Function.new('^', [e1, e2]) })
         atom = method(:parse_atomic_term).curry.call(vs)
         colon.call(plus.call(minus.call(mul.call(div.call(power.call(atom))))), inp)
       end
@@ -157,18 +160,20 @@ module Satre
       end
       
       def parse_infix_atom(vs, inp)
-        puts 'parse_infix_atom'
+        puts "parse_infix_atom #{vs} #{inp}"
         tm, rest = parse_term(vs, inp)
-        if ["=", '<', '<=', '>', ">="].include?(rest[1])
-          papply( ->(tm_) { Atom.new(Relation.new(rest[0], [tm,tm_]))  }, parse_term(vs, rest[1..-1]))
-        else fail "" # Excepion erfinden
+        puts "#{tm}, #{rest}"
+        if rest != [] && ["=", '<', '<=', '>', ">="].include?(rest.first)
+          ast, ost = parse_term(vs, rest[1..-1])
+          papply( ->(tm_) {Atom.new(Relation.new(rest[0], [tm, tm_]))  }, ast, ost )
+        else fail ParserError, 'calculated' # Excepion erfinden
         end
       end
 
       def parse_atom(vs, inp)
         puts 'parse_atom'
         parse_infix_atom(vs, inp)
-        rescue Exception
+        rescue ParserError
           head = inp.first
           rest = inp[1..-1]
           if rest[0] == '('

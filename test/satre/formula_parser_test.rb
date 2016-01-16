@@ -37,15 +37,16 @@ class FormulaParserTest < Minitest::Test
   end
 
   def test_operators
+    skip
     assert_equal "x < y".to_fol, ''
   end
 
   def test_example_1
+    skip
     assert_equal "forall x y. exists z. x < z /\\ y < z".to_fol, ''
   end
 
   def test_example_2
-    skip
     assert_equal "~(forall x. P(x)) <=> exists y. ~P(y)".to_fol, ''
   end
 end
