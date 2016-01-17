@@ -13,9 +13,8 @@ module Satre
       true
     end
 
-    def validate(domain, func, m, v, tm)
-    #     Var(x) -> apply v x
-      v.send(variable) # ?
+    def validate(_, _, valudation)
+      valudation[variable.to_sym]
     end
 
     def to_s

@@ -17,9 +17,12 @@ module Satre
       term.wellformed?(sig)
     end
 
-    def holds?(*args)
     #   | Forall(x,p) -> forall (fun a -> holds m ((x |-> a) v) p) domain
-      false
+    def holds?(domain, func, pred, valudation)
+      domain.all? do |a|
+        valudation[variable.to_s.to_sym] = a
+        term.holds?(domain, func, pred, valudation) 
+      end
     end
     
     def to_s

@@ -21,9 +21,9 @@ module Satre
       term_list.all? { |x| x.wellformed?(sig) } && sig[function.to_sym] == term_list.length
     end
 
-    def holds?(*args)
     #   | Fn(f,args) -> func f (map (termval m v), args);;
-      func.call(f, args.map(&:validate)) # ???
+    def validate(func, pred, valudation)
+      func.call(f, term_list.map { |t| t.validate(func, pred, valudation) })
     end
 
     def to_s

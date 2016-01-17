@@ -15,7 +15,7 @@ module Satre
     #   | Iff(p,q) -> (holds m v p = holds m v q)
     #   | Forall(x,p) -> forall (fun a -> holds m ((x |-> a) v) p) domain
     #   | Exists(x,p) -> exists (fun a -> holds m ((x |-> a) v) p) domani;;
-    def holds?
+    def holds?(domain, func, predicate, valudation)
       fail 'abstract method'
     end
 

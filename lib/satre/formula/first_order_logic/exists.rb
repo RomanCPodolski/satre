@@ -17,9 +17,12 @@ module Satre
       term.wellformed?(sig)
     end
 
-    def holds?(domain, func, pred, as, m, v, fm)
-    #   | Exists(x,p) -> exists (fun a -> holds m ((x |-> a) v) p) domani;;
-      false
+    # Exists(x,p) -> exists (fun a -> holds m ((x |-> a) v) p) domain;;
+    def holds?(domain, func, pred, valudation)
+      domain.any? do |a|
+        valudation[variable.to_s.to_sym] = a
+        term.holds?(domain, func, pred, valudation )
+      end
     end
 
     def to_s

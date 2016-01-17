@@ -44,6 +44,19 @@ problem_5_1_2_4 = 'B(x,y) ==> (exists z. S(z,y))'.to_formula
 problem_5_1_2_5 = 'S(x,y) ==> S(y,f(f(x)))'.to_formula
 sig_5_1_2 = {m: 0, f: 1, S: 2, B: 2}
 
+axiom_1 = "forall x. x = x".to_formula
+axiom_2 = "forall x y. (x = y ==> y = x)".to_formula
+axiom_3 = "forall x y z. (x = y /\\ y = x ==> x = z)".to_formula
+
+domain = (0..23).to_a
+valudation = {}
+func = ->(f, args) {}
+empty = ->(p, args) { if p == '=' then false else fail "undefined predicate #{p}" end }
+universal = ->(p, args) { if p == '=' then true else fail "undefined predicate #{p}" end }
+equality = ->(p, args) { if p == '=' then args.inject(:==) else fail "undefined predicate #{p}" end }
+even_sum = ->(p, args) { if p == '=' then args.inject(:+).even? else fail "undefined predicate #{p}" end }
+modular_aritmetic = ->(p, args) { if p == '=' then args[0] == (args[1] % 16) else fail "undefined predicate #{p}" end }
+
 problem_4_1 = Terminal::Table.new do |t|
   t.title = 'Problem 4.1'
   t.headings = ['', 'Formula', 'Result' ]
@@ -89,6 +102,16 @@ problem_5_1_2 = Terminal::Table.new do |t|
   t << ['5.', problem_5_1_2_5, sig_5_1_2.to_s, problem_5_1_2_5.wellformed?(sig_5_1_2) ]
 end
 
+problem_5_2 = Terminal::Table.new do |t|
+  t.title = 'Problem 5.2'
+  t.headings = ['relation', "#{axiom_1}.holds?", "#{axiom_2}.holds?", "#{axiom_3}.holds?"] 
+  t << ['empty', axiom_1.holds?(domain, func, empty, valudation), axiom_2.holds?(domain, func, empty, valudation), axiom_3.holds?(domain, func, empty, valudation)]
+  t << ['universal', axiom_1.holds?(domain, func, universal, valudation), axiom_2.holds?(domain, func, universal, valudation), axiom_3.holds?(domain, func, universal, valudation)]
+  t << ['equality', axiom_1.holds?(domain, func, equality, valudation), axiom_2.holds?(domain, func, equality, valudation), axiom_3.holds?(domain, func, equality, valudation)]
+  t << ['even sum', axiom_1.holds?(domain, func, even_sum, valudation), axiom_2.holds?(domain, func, even_sum, valudation), axiom_3.holds?(domain, func, even_sum, valudation)]
+  t << ['modular aritmetic', axiom_1.holds?(domain, func, modular_aritmetic, valudation), axiom_2.holds?(domain, func, modular_aritmetic, valudation), axiom_3.holds?(domain, func, modular_aritmetic, valudation)]
+end
+
 puts problem_4_1
 puts """I used a similar approach in my pencil-and-paper derivations
 first subtitude the entails a |= b with a /\\ ~b and then check this statement
@@ -100,3 +123,4 @@ puts """This approach uses the entails functions to solve the puzzle,
 while in the exercise we substituded with the rules until clear statements were made."""
 puts problem_5_1_1
 puts problem_5_1_2
+puts problem_5_2

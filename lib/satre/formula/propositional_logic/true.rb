@@ -7,6 +7,7 @@ module Satre
       '⊤'
     end
 
+    # true holds
     alias :holds? :eval
 
     # True is wellformed

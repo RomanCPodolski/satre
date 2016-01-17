@@ -21,12 +21,13 @@ module Satre
       antendence.wellformed?(sig) && consequence.wellformed?(sig)
     end
 
-    def holds(*args)
-      (! antendence.holds?(args)) or (consequence.holds?(args))
+    #   | Imp(p,q) -> not(holds m v p) or (holds m v q)
+    def holds?(domain, func, pred, valudation)
+      (! antendence.holds?(domain, func, pred, valudation)) || (consequence.holds?(domain, func, pred, valudation))
     end
 
     def eval(valudation)
-      (! antendence.eval(valudation)) or (consequence.eval(valudation))
+      (! antendence.eval(valudation)) || (consequence.eval(valudation))
     end
 
     def atoms

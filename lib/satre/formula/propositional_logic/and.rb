@@ -16,8 +16,8 @@ module Satre
       "(#{left_conjunct} ∧ #{right_conjunct})"
     end
 
-    def holds?(*args)
-      left_conjunct.holds?(m, v) && right_conjunct.holds?(m, v)
+    def holds?(domain, func, pred, valudation)
+      left_conjunct.holds?(domain, func, pred, valudation) && right_conjunct.holds?(domain, func, pred, valudation)
     end
 
     # p /\\ q is well-formed if p and q are well-formed

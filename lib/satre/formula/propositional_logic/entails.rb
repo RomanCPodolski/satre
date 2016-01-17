@@ -24,8 +24,13 @@ module Satre
       knowledge_base.wellformed?(sig) && logical_consequence.wellformed?(sig)
     end
 
+    def hold?(domain, func, predicate, valudation)
+      fail 'not implemented'
+      #And.new(knowledge_base, Not.new(logical_consequence)).unsatifiable?
+    end
+
     def eval(*)
-      knowledge_base.entails?(logical_consequence) 
+      And.new(knowledge_base, Not.new(logical_consequence)).unsatifiable?
     end
 
     def atoms

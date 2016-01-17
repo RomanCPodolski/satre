@@ -12,9 +12,9 @@ module Satre
       @value = value.dup.freeze
     end
 
-    def holds?(*args)
+    def holds?(domain, func, predicate, valudation)
       fail(OperationExceprion, 'Atomic value must be a relation') unless value.is_a?(Relation)
-      value.holds?(args)
+      value.holds?(domain, func, predicate, valudation)
     end
 
     # A predicate p(x_1,...,x_n) is well-formed if

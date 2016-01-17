@@ -36,30 +36,32 @@ The see the results of the exercise run `./bin/exercise` from the root directory
 To embed proportional logic solving in your project one can use `String#to_formula`, on a well formed proportional logic string.
 Possible operations are
 
-  * True value `"True"`
-  * False value `"False"`
+  * True value `"true"`
+  * False value `"false"`
   * Atomic logical variable `"A"` (or any other alphanumeric combination)
   * logical negation `"~A"`
   * logical and `"A /\\ B"`
   * logical or `"A \\/ B"`
   * Implies `"A <=> B"`
-  * If and only if `"A => B"`
+  * If and only if `"A ==> B"`
   * Entails `"A |= B"`
+  * Forall `"forall x. y"`
+  * Exists `"exists x. y"`
 
 An example
 
 ```ruby
-formula = '(Fire => Smoke) /\\ Fire /\\ ~Smoke'.to_formula 
+formula = '(Fire ==> Smoke) /\\ Fire /\\ ~Smoke'.to_formula 
 ```
 
 To evaluate a formula use `Satre::Formula#eval`
 
 ```ruby
-formula = '(Fire => Smoke) /\\ Fire /\\ ~Smoke'.to_formula 
-formula.eval 'Fire' => true, 'Smoke' => true
+formula = '(Fire ==> Smoke) /\\ Fire /\\ ~Smoke'.to_formula 
+formula.eval Fire: true, Smoke: true
 ```
 
-Further are provided `Satre::Formula#tauntolgy?`,`Satre::Formula#satisfiable?`,`Satre::Formula#unsatisfiable?`
+Further are provided `Satre::Formula#tauntolgy?`,`Satre::Formula#satisfiable?`,`Satre::Formula#unsatisfiable?`, `Satre::Formula#holds?`,`Satre::Formula#wellformed?`
 
 For further information see the doc.
 

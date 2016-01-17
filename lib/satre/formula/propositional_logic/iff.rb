@@ -12,8 +12,8 @@ module Satre
       @right_conditional = right_conditional.dup.freeze
     end
 
-    def holds?(*args)
-      left_conditional.holds?(args) == right_conditional.holds?(args)
+    def holds?(domain, func, pred, valudation)
+      left_conditional.holds?(domain, func, pred, valudation) == right_conditional.holds?(domain, func, pred, valudation)
     end
 
     # p <=> q is well-formed if p and q are well-formed

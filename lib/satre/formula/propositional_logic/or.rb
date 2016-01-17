@@ -16,8 +16,8 @@ module Satre
       "(#{left_disjunct} ∨ #{right_disjunct})"
     end
 
-    def holds?(args)
-      left_disjunct.holds?(args) or right_disjunct.holds?(args)
+    def holds?(domain, func, pred, valudation)
+      left_disjunct.holds?(domain, func, pred, valudation) or right_disjunct.holds?(domain, func, pred, valudation)
     end
 
     # p \// q is well-formed if p and q are well-formed

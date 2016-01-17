@@ -13,8 +13,8 @@ module Satre
       "(¬#{literal})"
     end
 
-    def holds?(args)
-      ! literal.holds?(valudation)
+    def holds?(domain, func, pred, valudation)
+      ! literal.holds?(domain, func, pred, valudation)
     end
 
     # ~p is well-formed if p is well-formed
