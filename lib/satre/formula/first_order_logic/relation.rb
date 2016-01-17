@@ -10,6 +10,13 @@ module Satre
       @term_list = term_list.dup.freeze
     end
 
+    # A predicate p(x_1,...,x_n) is well-formed if
+    #   (a) each term x_1,...,x_n is well-formed
+    #   (b) there is a pair (q, m) in signature sig where q = p and n = m
+    def wellformed?(sig)
+      term_list.all? { |x| x.wellformed?(sig) } && sig[relation.to_sym] == term_list.length
+    end
+
     def to_s
       s = term_list.map(&:to_s).join(relation.to_s)
       if s.to_s == '' then relation.to_s else s end

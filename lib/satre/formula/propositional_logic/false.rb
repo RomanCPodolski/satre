@@ -9,6 +9,11 @@ module Satre
 
     alias :holds? :eval
 
+    # False is well-formed
+    def wellformed?(sig)
+      true
+    end
+
     def eval(*)
       false
     end

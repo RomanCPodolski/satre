@@ -17,6 +17,11 @@ module Satre
       ! literal.holds?(valudation)
     end
 
+    # ~p is well-formed if p is well-formed
+    def wellformed?(sig)
+      literal.wellformed?(sig)
+    end
+
     def eval(valudation)
       ! literal.eval(valudation)
     end

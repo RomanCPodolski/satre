@@ -17,6 +17,13 @@ module Satre
       value.holds?(args)
     end
 
+    # A predicate p(x_1,...,x_n) is well-formed if
+    #   (a) each term x_1,...,x_n is well-formed
+    #   (b) there is a pair (q, m) in signature sig where q = p and n = m
+    def wellformed?(sig)
+      @value.wellformed?(sig)
+    end
+
     def eval(valudation)
       fail(Error, 'valudation must be a hash') unless valudation.is_a?(Hash)
       fail(Error, 'all validations must be booleans') unless valudation.values.all?{|b|!!b == b}

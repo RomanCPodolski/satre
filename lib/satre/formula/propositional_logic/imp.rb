@@ -16,6 +16,11 @@ module Satre
       "(#{antendence} → #{consequence})"
     end
 
+    # p ==> q is well-formed if p and q are well-formed
+    def wellformed?(sig)
+      antendence.wellformed?(sig) && consequence.wellformed?(sig)
+    end
+
     def holds(*args)
       (! antendence.holds?(args)) or (consequence.holds?(args))
     end

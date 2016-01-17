@@ -19,6 +19,11 @@ module Satre
       "(#{knowledge_base} ⊨ #{logical_consequence})"
     end
 
+    # p |= q is wellformed if p and q are well-formed
+    def wellformed?(sig)
+      knowledge_base.wellformed?(sig) && logical_consequence.wellformed?(sig)
+    end
+
     def eval(*)
       knowledge_base.entails?(logical_consequence) 
     end

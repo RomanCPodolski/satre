@@ -16,6 +16,11 @@ module Satre
       left_conditional.holds?(args) == right_conditional.holds?(args)
     end
 
+    # p <=> q is well-formed if p and q are well-formed
+    def wellformed?(sig)
+      left_conjunct.wellformed?(sig) && right_conjunct.wellformed(sig)
+    end
+
     def to_s
       "(#{left_conditional} ⇔ #{right_conditional})"
     end

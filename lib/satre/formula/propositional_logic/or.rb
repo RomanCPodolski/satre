@@ -20,6 +20,11 @@ module Satre
       left_disjunct.holds?(args) or right_disjunct.holds?(args)
     end
 
+    # p \// q is well-formed if p and q are well-formed
+    def wellformed?(sig)
+      left_disjunct.wellformed?(sig) && right_disjunct.wellformed?(sig)
+    end
+
     def eval(valudation)
       left_disjunct.eval(valudation) or right_disjunct.eval(valudation)
     end

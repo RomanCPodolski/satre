@@ -16,7 +16,7 @@ module Satre
     #   | Forall(x,p) -> forall (fun a -> holds m ((x |-> a) v) p) domain
     #   | Exists(x,p) -> exists (fun a -> holds m ((x |-> a) v) p) domani;;
     def holds?
-      false
+      fail 'abstract method'
     end
 
     # 1. Constant True and False are wellformed
@@ -29,7 +29,7 @@ module Satre
     # 6. p <=> q is wellformed if p and q are wellformed
     # 7. forall x. p and exists x. p are wellformed if p is wellformed
     def wellformed?(signature)
-      fail(ArgumentError, '...') unless signature.is_a?(Signature)
+      fail 'abstract method'
     end
   end
 end

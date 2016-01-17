@@ -12,6 +12,11 @@ module Satre
       @term = term.dup.freeze
     end
 
+    # exists x. p is well-formed if p is well-formed
+    def wellformed?(sig)
+      term.wellformed?(sig)
+    end
+
     def holds?(domain, func, pred, as, m, v, fm)
     #   | Exists(x,p) -> exists (fun a -> holds m ((x |-> a) v) p) domani;;
       false
