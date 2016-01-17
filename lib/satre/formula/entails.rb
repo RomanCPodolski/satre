@@ -13,7 +13,10 @@ module Satre
       fail(ArgumentError, 'Argument must be a Formula') unless logical_consequence.is_a?(Formula)
       @knowledge_base = knowledge_base.dup.freeze
       @logical_consequence = logical_consequence.dup.freeze
-      super "(#{@knowledge_base} ⊨ #{@logical_consequence})"
+    end
+
+    def to_s
+      "(#{knowledge_base} ⊨ #{logical_consequence})"
     end
 
     def eval(*)

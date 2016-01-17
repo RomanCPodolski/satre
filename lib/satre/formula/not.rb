@@ -7,7 +7,10 @@ module Satre
     def initialize(literal)
       fail(ArgumentError, 'Argument must be a Formula') unless literal.is_a?(Formula)
       @literal = literal.dup.freeze
-      super "(¬#{@literal})"
+    end
+
+    def to_s
+      "(¬#{literal})"
     end
 
     def eval(valudation)

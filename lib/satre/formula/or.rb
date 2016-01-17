@@ -10,7 +10,10 @@ module Satre
       fail(ArgumentError, 'Argument must be a Formula') unless right_disjunct.is_a?(Formula)
       @left_disjunct = left_disjunct.dup.freeze
       @right_disjunct = right_disjunct.dup.freeze
-      super "(#{@left_disjunct} ∨ #{@right_disjunct})"
+    end
+
+    def to_s
+      "(#{left_disjunct} ∨ #{right_disjunct})"
     end
 
     def eval(valudation)

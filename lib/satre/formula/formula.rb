@@ -3,18 +3,7 @@ module Satre
     include Comparable
     
     def <=>(other)
-      base <=> other.base
-    end
-
-    attr_reader :base
-
-    def initialize(base)
-      fail(ArgumentError, "Argument must be a String: #{base}") unless base.is_a?(String)
-      @base = base.dup.freeze
-    end
-
-    def to_s
-      base
+      self.to_s <=> other.to_s
     end
 
     def atoms

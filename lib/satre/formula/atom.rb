@@ -10,7 +10,6 @@ module Satre
 
     def initialize(value)
       @value = value.dup.freeze
-      super value.to_s
     end
 
     def eval(valudation)
@@ -19,6 +18,10 @@ module Satre
       valudation = valudation.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
       fail(Error, "valudation for Atom #{base} not given") unless valudation.keys.include?(base.to_sym)
       valudation[base.to_sym]
+    end
+    
+    def to_s
+      value.to_s
     end
 
     def atoms

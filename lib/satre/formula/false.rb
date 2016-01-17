@@ -3,8 +3,8 @@ require 'satre/formula'
 module Satre
   class False < Formula
 
-    def initialize
-      super '⊥'
+    def to_s
+      '⊥'
     end
 
     def eval(*)

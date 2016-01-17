@@ -2,8 +2,9 @@ require 'satre/formula'
 
 module Satre
   class True < Formula
-    def initialize
-      super '⊤'
+
+    def to_s
+      '⊤'
     end
 
     def eval(*)

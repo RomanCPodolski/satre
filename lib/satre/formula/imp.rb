@@ -10,7 +10,10 @@ module Satre
       fail(ArgumentError, "Argument must be a Formula q:#{q}") unless consequence.is_a?(Formula)
       @antendence = antendence.dup.freeze
       @consequence = consequence.dup.freeze
-      super "(#{@antendence} → #{@consequence})"
+    end
+
+    def to_s
+      "(#{antendence} → #{consequence})"
     end
 
     def eval(valudation)

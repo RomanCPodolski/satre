@@ -4,15 +4,13 @@ module Satre
   class FormulaParser < Parser
     class << self
 
-      def parse_formula
-        lambda do |inp|
-          e1, i1 = parse_imp(inp)
-          if i1[0] == '|=' or i1[0] == '⊨'
-            e2, i2 = parse_formula.call(i1.drop(1))
-            return Entails.new(e1,e2), i2
-          end
-          return e1, i1
+      def parse_formula(inp)
+        e1, i1 = parse_imp(inp)
+        if i1[0] == '|=' or i1[0] == '⊨'
+          e2, i2 = parse_formula.call(i1.drop(1))
+          return Entails.new(e1,e2), i2
         end
+        return e1, i1
       end
 
       def parse_imp(inp)
@@ -78,15 +76,15 @@ module Satre
       end
 
       def parse(inp)
-        method(:make_parser).curry.call(parse_formula).call(inp)
+        method(:make_parser).curry.call(method(:parse_formula)).call(inp)
       end
 
     end
   end
 end
 
-class String
-  def to_formula
-    Satre::FormulaParser.parse(self)
-  end
-end
+#class String
+  #def to_formula
+    #Satre::FormulaParser.parse(self)
+  #end
+#end

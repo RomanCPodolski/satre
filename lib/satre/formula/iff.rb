@@ -10,7 +10,10 @@ module Satre
       fail(ArgumentError, 'Argument must be a Formula') unless right_conditional.is_a?(Formula)
       @left_conditional = left_conditional.dup.freeze
       @right_conditional = right_conditional.dup.freeze
-      super "(#{@left_conditional} ⇔ #{@right_conditional})"
+    end
+
+    def to_s
+      "(#{left_conditional} ⇔ #{right_conditional})"
     end
 
     def eval(valudation)

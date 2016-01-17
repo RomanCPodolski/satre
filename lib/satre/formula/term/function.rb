@@ -1,4 +1,9 @@
 require 'satre/formula/term/term'
 
-class Function < Term
+module Satre
+  class Function < Term
+    def to_s
+      "#{function}(#{term_list.map(&:to_s).join(',')})"
+    end
+  end
 end
