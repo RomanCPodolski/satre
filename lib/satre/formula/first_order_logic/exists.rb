@@ -1,7 +1,7 @@
-require 'satre/formula'
+require 'satre/formula/first_order_logic/fol_formula'
 
 module Satre
-  class Exists < Formula
+  class Exists < Fol_Formula
     attr_reader :variable
     attr_reader :term
 

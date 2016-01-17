@@ -16,8 +16,8 @@ module Satre
       fail(Error, 'valudation must be a hash') unless valudation.is_a?(Hash)
       fail(Error, 'all validations must be booleans') unless valudation.values.all?{|b|!!b == b}
       valudation = valudation.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
-      fail(Error, "valudation for Atom #{base} not given") unless valudation.keys.include?(base.to_sym)
-      valudation[base.to_sym]
+      fail(Error, "valudation for Atom #{value} not given") unless valudation.keys.include?(to_s.to_sym)
+      valudation[to_s.to_sym]
     end
     
     def to_s
@@ -25,7 +25,7 @@ module Satre
     end
 
     def atoms
-      [base]
+      [value.to_s.to_sym]
     end
 
   end

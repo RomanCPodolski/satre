@@ -8,11 +8,14 @@ class TrueTest < Minitest::Test
   def test_new
     assert_instance_of(True, t)
     assert_kind_of(Formula, t)
-    assert_equal '⊤', t.base
+  end
+
+  def test_to_s
+    assert_equal '⊤', t.to_s
   end
 
   def test_to_fomula
-    assert_equal t, 'True'.to_formula
+    assert_equal t, 'true'.to_formula
   end
 
   def test_eval

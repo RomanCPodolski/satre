@@ -1,7 +1,7 @@
-require 'satre/formula/fol/fol'
+require 'satre/formula/first_order_logic/fol_formula'
 
 module Satre
-  class Forall < Fol
+  class Forall < Fol_Formula
     attr_reader :variable
     attr_reader :term
     def initialize(variable, term)

@@ -12,9 +12,10 @@ class AtomTest < Minitest::Test
     assert_kind_of Formula, a
   end
 
-  def test_base
-    assert_equal('a', a.base)
+  def test_to_s
+    assert_equal('a', a.to_s)
   end
+
 
   def test_ufo_operator
     assert_equal(-1, a <=> b)
@@ -28,7 +29,7 @@ class AtomTest < Minitest::Test
   end
 
   def test_atoms
-    assert_equal(a.atoms, ['a'])
+    assert_equal(a.atoms, [:a])
   end
 
 end

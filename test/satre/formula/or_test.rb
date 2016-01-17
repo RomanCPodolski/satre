@@ -3,8 +3,8 @@ require 'test_helper'
 class OrTest < Minitest::Test
   extend Minitest::Spec::DSL
 
-  let(:a) {Atom.new 'a'}
-  let(:b) {Atom.new 'b'}
+  let(:a) {Atom.new('a')}
+  let(:b) {Atom.new('b')}
   let(:a_or_b) {Or.new a, b}
 
   def test_new
@@ -12,7 +12,10 @@ class OrTest < Minitest::Test
     assert_kind_of Formula, a_or_b
     assert_equal a, a_or_b.left_disjunct
     assert_equal b, a_or_b.right_disjunct
-    assert_equal '(a ∨ b)', a_or_b.base
+  end
+
+  def test_to_s
+    assert_equal '(a ∨ b)', a_or_b.to_s
   end
 
   def test_to_fomula
@@ -29,7 +32,7 @@ class OrTest < Minitest::Test
   end
 
   def test_atoms
-    assert_equal ['a', 'b'], a_or_b.atoms
+    assert_equal [:a, :b], a_or_b.atoms
   end
 
 end

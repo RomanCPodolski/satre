@@ -7,11 +7,11 @@ class SatreTest < Minitest::Test
   end
 
   def test_exercise_4_1_1
-    assert('False |= True'.to_formula.eval)
+    assert('false |= true'.to_formula.eval)
   end
 
   def test_exercise_4_1_2
-    refute('True |= False'.to_formula.eval)
+    refute('true |= false'.to_formula.eval)
   end
 
   def test_exercise_4_1_3
@@ -27,15 +27,15 @@ class SatreTest < Minitest::Test
   end
 
   def test_exercise_4_2_1
-    assert('Smoke => Smoke'.to_formula.tautology?)
-    assert('Smoke => Smoke'.to_formula.satifiable?)
-    refute('Smoke => Smoke'.to_formula.unsatifiable?)
+    assert('Smoke ==> Smoke'.to_formula.tautology?)
+    assert('Smoke ==> Smoke'.to_formula.satifiable?)
+    refute('Smoke ==> Smoke'.to_formula.unsatifiable?)
   end
 
   def test_exercise_4_2_2
-    refute('(Smoke => Fire) => (~Smoke => ~Fire)'.to_formula.tautology?)
-    assert('(Smoke => Fire) => (~Smoke => ~Fire)'.to_formula.satifiable?)
-    refute('(Smoke => Fire) => (~Smoke => ~Fire)'.to_formula.unsatifiable?)
+    refute('(Smoke ==> Fire) ==> (~Smoke ==> ~Fire)'.to_formula.tautology?)
+    assert('(Smoke ==> Fire) ==> (~Smoke ==> ~Fire)'.to_formula.satifiable?)
+    refute('(Smoke ==> Fire) ==> (~Smoke ==> ~Fire)'.to_formula.unsatifiable?)
   end
 
   def test_exercise_4_2_3
@@ -45,9 +45,9 @@ class SatreTest < Minitest::Test
   end
 
   def test_exercise_4_2_4
-    refute('(Fire => Smoke) /\\ Fire /\\ ~Smoke'.to_formula.tautology?)
-    refute('(Fire => Smoke) /\\ Fire /\\ ~Smoke'.to_formula.satifiable?)
-    assert('(Fire => Smoke) /\\ Fire /\\ ~Smoke'.to_formula.unsatifiable?)
+    refute('(Fire ==> Smoke) /\\ Fire /\\ ~Smoke'.to_formula.tautology?)
+    refute('(Fire ==> Smoke) /\\ Fire /\\ ~Smoke'.to_formula.satifiable?)
+    assert('(Fire ==> Smoke) /\\ Fire /\\ ~Smoke'.to_formula.unsatifiable?)
   end
 
   def test_exercise_4_3_1

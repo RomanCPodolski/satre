@@ -11,8 +11,12 @@ class NotTest < Minitest::Test
     assert_kind_of Formula, not_a
   end
 
-  def test_base
-    assert_equal '(¬a)', not_a.base
+  def test_to_fomula
+    assert_equal '~a'.to_formula, not_a
+  end
+
+  def test_to_s
+    assert_equal '(¬a)', not_a.to_s
   end
 
   def test_literal

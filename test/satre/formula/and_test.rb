@@ -12,11 +12,14 @@ class AndTest < Minitest::Test
     assert_kind_of(Formula, a_and_b)
     assert_equal(a, a_and_b.left_conjunct)
     assert_equal(b, a_and_b.right_conjunct)
-    assert_equal('(a ∧ b)', a_and_b.base)
+  end
+
+  def test_to_s
+    assert_equal('(a ∧ b)', a_and_b.to_s)
   end
 
   def test_to_fomula
-    assert_equal('(a /\\ b)'.to_formula, a_and_b)
+    assert_equal('(a /\\ b)'.to_formula, And.new(Atom.new(Relation.new('a',[])), Atom.new(Relation.new('b',[]))))
     assert_instance_of(And, '(a /\\ b)'.to_formula)
     assert_kind_of(Formula, '(a /\\ b)'.to_formula)
   end
@@ -29,7 +32,7 @@ class AndTest < Minitest::Test
   end
 
   def test_atoms
-    assert_equal(['a','b'], a_and_b.atoms)
+    assert_equal([:a, :b], a_and_b.atoms)
   end
 
 end

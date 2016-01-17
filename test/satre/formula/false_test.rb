@@ -8,7 +8,14 @@ class FalseTest < Minitest::Test
   def test_new
     assert_instance_of(False, f)
     assert_kind_of(Formula, f)
-    assert_equal '⊥', f.base
+  end
+
+  def test_to_fomula
+    assert_equal f, 'false'.to_formula
+  end
+
+  def to_s
+    assert_equal '⊥', f.to_s
   end
 
   def test_eval
