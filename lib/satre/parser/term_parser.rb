@@ -43,7 +43,7 @@ module Satre
       
 
       def parse_atom(vs, inp)
-        parse_infix_atom(vs, inp)
+        FormulaParser.parse_infix_atom(vs, inp)
         rescue ParserError
           head = inp.first
           rest = inp[1..-1]

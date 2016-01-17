@@ -52,7 +52,7 @@ module Satre
       def parse_infix_atom(vs, inp)
         tm, rest = TermParser.parse_term(vs, inp)
         if rest != [] && ["=", '<', '<=', '>', ">="].include?(rest.first)
-          ast, ost = parse_term(vs, rest[1..-1])
+          ast, ost = TermParser.parse_term(vs, rest[1..-1])
           papply( ->(tm_) {Atom.new(Relation.new(rest[0], [tm, tm_]))  }, ast, ost )
         else fail ParserError, 'calculated' # Excepion erfinden
         end
