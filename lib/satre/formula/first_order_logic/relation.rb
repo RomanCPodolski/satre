@@ -18,9 +18,9 @@ module Satre
     end
 
     def to_s
-      s = term_list.map(&:to_s).join(relation.to_s)
-      if s.to_s == '' then relation.to_s else s end
+      return term_list.map(&:to_s).join(relation.to_s) if ['>','<','=','<=','>=','!='].include?(relation)
+      s = term_list.map(&:to_s).join(',')
+      "#{relation}#{"("+s+")" unless s.to_s == ''}"
     end
-
   end
 end

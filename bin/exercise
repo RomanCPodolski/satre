@@ -6,16 +6,17 @@ require 'terminal-table'
 
 include Satre
 
-problem_4_1_1 = 'False |= True'.to_formula 
-problem_4_1_2 = 'True |= False'.to_formula 
+problem_4_1_1 = 'false |= true'.to_formula 
+problem_4_1_2 = 'true |= false'.to_formula 
 problem_4_1_3 = '(A /\\ B) |= (A <=> B)'.to_formula 
 problem_4_1_4 = '(A <=> B) |= A \\/ B'.to_formula 
 problem_4_1_5 = '(A <=> B) |= ~A \\/ B'.to_formula 
 
-problem_4_2_1 = 'Smoke => Smoke'.to_formula 
-problem_4_2_2 = '(Smoke => Fire) => (~Smoke => ~Fire)'.to_formula 
+problem_4_2_1 = 'Smoke ==> Smoke'.to_formula 
+problem_4_2_2 = '(Smoke ==> Fire) ==> (~Smoke ==> ~Fire)'.to_formula 
 problem_4_2_3 = 'Smoke \\/ Fire \\/ ~Fire'.to_formula 
-problem_4_2_4 = '(Fire => Smoke) /\\ Fire /\\ ~Smoke'.to_formula 
+problem_4_2_4 = '(Fire ==> Smoke) /\\ Fire /\\ ~Smoke'.to_formula 
+
 
 bsays = 'b <=> (a <=> ~a)'.to_formula
 csays = 'c <=> ~b'.to_formula
@@ -29,6 +30,20 @@ b_is_knave  = Entails.new(kb,'~b'.to_formula)
 c_is_knight = Entails.new(kb,'c'.to_formula)
 c_is_knave  = Entails.new(kb,'~c'.to_formula)
 
+problem_5_1_1_1 = 'g(d,d)'.to_term
+problem_5_1_1_2 = 'f(x,g(y,z),d)'.to_term
+problem_5_1_1_3 = 'g(x,f(y,z),d)'.to_term
+problem_5_1_1_4 = 'f(x,h(x,z),d)'.to_term
+sig_5_1_1 = {d: 0, f: 2, g: 3}
+
+problem_5_1_2_1 = 'S(m, x)'.to_formula
+p problem_5_1_2_1
+problem_5_1_2_2 = 'B(m, f(m))'.to_formula
+problem_5_1_2_3 = 'B(B(m,x),y)'.to_formula
+problem_5_1_2_4 = 'B(x,y) ==> (exists z. S(z,y))'.to_formula
+problem_5_1_2_5 = 'S(x,y) ==> S(y,f(f(x)))'.to_formula
+sig_5_1_2 = {m: 0, f: 1, S: 2, B: 2}
+
 problem_4_1 = Terminal::Table.new do |t|
   t.title = 'Problem 4.1'
   t.headings = ['', 'Formula', 'Result' ]
@@ -38,7 +53,6 @@ problem_4_1 = Terminal::Table.new do |t|
   t << ['4.', problem_4_1_4, problem_4_1_4.eval ]
   t << ['5.', problem_4_1_5, problem_4_1_5.eval ]
 end
-
 
 problem_4_2 = Terminal::Table.new do |t|
   t.title = 'Problem 4.2'
@@ -56,15 +70,33 @@ problem_4_3 = Terminal::Table.new do |t|
   t << ['is knave?', a_is_knave.eval , b_is_knave.eval , c_is_knave.eval ]
 end
 
+problem_5_1_1 = Terminal::Table.new do |t|
+  t.title = 'Problem 5.1.1'
+  t.headings = ['', 'Term', 'Signature', 'wellformed?']
+  t << ['1.', problem_5_1_1_1, sig_5_1_1.to_s, problem_5_1_1_1.wellformed?(sig_5_1_1) ]
+  t << ['2.', problem_5_1_1_2, sig_5_1_1.to_s, problem_5_1_1_2.wellformed?(sig_5_1_1) ]
+  t << ['3.', problem_5_1_1_3, sig_5_1_1.to_s, problem_5_1_1_3.wellformed?(sig_5_1_1) ]
+  t << ['4.', problem_5_1_1_4, sig_5_1_1.to_s, problem_5_1_1_4.wellformed?(sig_5_1_1) ]
+end
+
+problem_5_1_2 = Terminal::Table.new do |t|
+  t.title = 'Problem 5.1.2'
+  t.headings = ['', 'Formula', 'Signature', 'wellformed?']
+  t << ['1.', problem_5_1_2_1, sig_5_1_2.to_s, problem_5_1_2_1.wellformed?(sig_5_1_2) ]
+  t << ['2.', problem_5_1_2_2, sig_5_1_2.to_s, problem_5_1_2_2.wellformed?(sig_5_1_2) ]
+  t << ['3.', problem_5_1_2_3, sig_5_1_2.to_s, problem_5_1_2_3.wellformed?(sig_5_1_2) ]
+  t << ['4.', problem_5_1_2_4, sig_5_1_2.to_s, problem_5_1_2_4.wellformed?(sig_5_1_2) ]
+  t << ['5.', problem_5_1_2_5, sig_5_1_2.to_s, problem_5_1_2_5.wellformed?(sig_5_1_2) ]
+end
 
 puts problem_4_1
 puts """I used a similar approach in my pencil-and-paper derivations
 first subtitude the entails a |= b with a /\\ ~b and then check this statement
 on unsatisfiability.
 """
-
 puts problem_4_2
 puts problem_4_3
-
 puts """This approach uses the entails functions to solve the puzzle,
 while in the exercise we substituded with the rules until clear statements were made."""
+puts problem_5_1_1
+puts problem_5_1_2
