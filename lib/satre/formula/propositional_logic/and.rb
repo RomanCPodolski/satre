@@ -16,6 +16,10 @@ module Satre
       "(#{left_conjunct} ∧ #{right_conjunct})"
     end
 
+    def holds?(*args)
+      left_conjunct.holds?(m, v) && right_conjunct.holds?(m, v)
+    end
+
     def eval(valudation)
       left_conjunct.eval(valudation) && right_conjunct.eval(valudation)
     end

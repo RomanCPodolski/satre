@@ -12,6 +12,11 @@ module Satre
       @value = value.dup.freeze
     end
 
+    def holds?(*args)
+      fail(OperationExceprion, 'Atomic value must be a relation') unless value.is_a?(Relation)
+      value.holds?(args)
+    end
+
     def eval(valudation)
       fail(Error, 'valudation must be a hash') unless valudation.is_a?(Hash)
       fail(Error, 'all validations must be booleans') unless valudation.values.all?{|b|!!b == b}

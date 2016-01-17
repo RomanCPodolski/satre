@@ -16,6 +16,10 @@ module Satre
       "(#{antendence} → #{consequence})"
     end
 
+    def holds(*args)
+      (! antendence.holds?(args)) or (consequence.holds?(args))
+    end
+
     def eval(valudation)
       (! antendence.eval(valudation)) or (consequence.eval(valudation))
     end

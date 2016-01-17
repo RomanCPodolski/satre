@@ -13,6 +13,10 @@ module Satre
       "(¬#{literal})"
     end
 
+    def holds?(args)
+      ! literal.holds?(valudation)
+    end
+
     def eval(valudation)
       ! literal.eval(valudation)
     end

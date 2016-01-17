@@ -12,6 +12,10 @@ module Satre
       @right_conditional = right_conditional.dup.freeze
     end
 
+    def holds?(*args)
+      left_conditional.holds?(args) == right_conditional.holds?(args)
+    end
+
     def to_s
       "(#{left_conditional} ⇔ #{right_conditional})"
     end

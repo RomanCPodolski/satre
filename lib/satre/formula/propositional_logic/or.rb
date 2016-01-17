@@ -16,6 +16,10 @@ module Satre
       "(#{left_disjunct} ∨ #{right_disjunct})"
     end
 
+    def holds?(args)
+      left_disjunct.holds?(args) or right_disjunct.holds?(args)
+    end
+
     def eval(valudation)
       left_disjunct.eval(valudation) or right_disjunct.eval(valudation)
     end

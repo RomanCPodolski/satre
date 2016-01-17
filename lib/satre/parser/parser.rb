@@ -47,7 +47,7 @@ module Satre
 
       # parse a list of items and collect them in a list
       def parse_list(opsym)
-        opupdate = ->(f,e1,e2) { f.call(e1) + e2 }
+        opupdate = ->(f,e1,e2) {  f.call(e1) << e2 }
         sof = ->(x) { [x] }
         method(:parse_ginfix).curry.call(opsym, opupdate, sof)
       end

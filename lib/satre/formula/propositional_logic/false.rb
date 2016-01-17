@@ -7,6 +7,8 @@ module Satre
       '⊥'
     end
 
+    alias :holds? :eval
+
     def eval(*)
       false
     end

@@ -11,6 +11,11 @@ module Satre
       @term = term.dup.freeze
     end
     
+    def holds?(*args)
+    #   | Forall(x,p) -> forall (fun a -> holds m ((x |-> a) v) p) domain
+      false
+    end
+    
     def to_s
       "∀ #{variable}. #{term}"
     end

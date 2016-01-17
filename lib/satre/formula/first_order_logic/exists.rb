@@ -12,6 +12,11 @@ module Satre
       @term = term.dup.freeze
     end
 
+    def holds?(domain, func, pred, as, m, v, fm)
+    #   | Exists(x,p) -> exists (fun a -> holds m ((x |-> a) v) p) domani;;
+      false
+    end
+
     def to_s
       "∃ #{variable}. #{term}"
     end
