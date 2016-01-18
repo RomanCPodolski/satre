@@ -18,7 +18,7 @@ module Satre
       end
 
       def symbolic?(str)
-        matches("~`!@#%$^&*-+<=>\\/|", str)
+        matches(":~`!@#%$^&*-+<=>\\/|", str)
       end
 
       def numeric?(str)

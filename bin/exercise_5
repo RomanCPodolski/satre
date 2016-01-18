@@ -6,30 +6,6 @@ require 'terminal-table'
 
 include Satre
 
-problem_4_1_1 = 'false |= true'.to_formula 
-problem_4_1_2 = 'true |= false'.to_formula 
-problem_4_1_3 = '(A /\\ B) |= (A <=> B)'.to_formula 
-problem_4_1_4 = '(A <=> B) |= A \\/ B'.to_formula 
-problem_4_1_5 = '(A <=> B) |= ~A \\/ B'.to_formula 
-
-problem_4_2_1 = 'Smoke ==> Smoke'.to_formula 
-problem_4_2_2 = '(Smoke ==> Fire) ==> (~Smoke ==> ~Fire)'.to_formula 
-problem_4_2_3 = 'Smoke \\/ Fire \\/ ~Fire'.to_formula 
-problem_4_2_4 = '(Fire ==> Smoke) /\\ Fire /\\ ~Smoke'.to_formula 
-
-
-bsays = 'b <=> (a <=> ~a)'.to_formula
-csays = 'c <=> ~b'.to_formula
-
-kb = And.new(bsays, csays)
-
-a_is_knight = Entails.new(kb,'a'.to_formula)
-a_is_knave  = Entails.new(kb,'~a'.to_formula)
-b_is_knight = Entails.new(kb,'b'.to_formula)
-b_is_knave  = Entails.new(kb,'~b'.to_formula)
-c_is_knight = Entails.new(kb,'c'.to_formula)
-c_is_knave  = Entails.new(kb,'~c'.to_formula)
-
 problem_5_1_1_1 = 'g(d,d)'.to_term
 problem_5_1_1_2 = 'f(x,g(y,z),d)'.to_term
 problem_5_1_1_3 = 'g(x,f(y,z),d)'.to_term
@@ -37,7 +13,6 @@ problem_5_1_1_4 = 'f(x,h(x,z),d)'.to_term
 sig_5_1_1 = {d: 0, f: 2, g: 3}
 
 problem_5_1_2_1 = 'S(m, x)'.to_formula
-p problem_5_1_2_1
 problem_5_1_2_2 = 'B(m, f(m))'.to_formula
 problem_5_1_2_3 = 'B(B(m,x),y)'.to_formula
 problem_5_1_2_4 = 'B(x,y) ==> (exists z. S(z,y))'.to_formula
@@ -56,32 +31,6 @@ universal = ->(p, args) { if p == '=' then true else fail "undefined predicate #
 equality = ->(p, args) { if p == '=' then args.inject(:==) else fail "undefined predicate #{p}" end }
 even_sum = ->(p, args) { if p == '=' then args.inject(:+).even? else fail "undefined predicate #{p}" end }
 modular_aritmetic = ->(p, args) { if p == '=' then args[0] == (args[1] % 16) else fail "undefined predicate #{p}" end }
-
-problem_4_1 = Terminal::Table.new do |t|
-  t.title = 'Problem 4.1'
-  t.headings = ['', 'Formula', 'Result' ]
-  t << ['1.', problem_4_1_1, problem_4_1_1.eval ]
-  t << ['2.', problem_4_1_2, problem_4_1_2.eval ]
-  t << ['3.', problem_4_1_3, problem_4_1_3.eval ]
-  t << ['4.', problem_4_1_4, problem_4_1_4.eval ]
-  t << ['5.', problem_4_1_5, problem_4_1_5.eval ]
-end
-
-problem_4_2 = Terminal::Table.new do |t|
-  t.title = 'Problem 4.2'
-  t.headings = ['', 'Formula', 'tauntolgy?', 'satifiable?', 'unsatifiable?']
-  t << ['1.', problem_4_2_1, problem_4_2_1.tautology?, problem_4_2_1.satifiable?, problem_4_2_1.unsatifiable? ]
-  t << ['2.', problem_4_2_2, problem_4_2_2.tautology?, problem_4_2_2.satifiable?, problem_4_2_2.unsatifiable? ]
-  t << ['3.', problem_4_2_3, problem_4_2_3.tautology?, problem_4_2_3.satifiable?, problem_4_2_3.unsatifiable? ]
-  t << ['4.', problem_4_2_4, problem_4_2_4.tautology?, problem_4_2_4.satifiable?, problem_4_2_4.unsatifiable? ]
-end
-
-problem_4_3 = Terminal::Table.new do |t|
-  t.title = 'Problem 4.2'
-  t.headings = ['', 'a', 'b', 'c']
-  t << ['is knight?', a_is_knight.eval , b_is_knight.eval , c_is_knight.eval ]
-  t << ['is knave?', a_is_knave.eval , b_is_knave.eval , c_is_knave.eval ]
-end
 
 problem_5_1_1 = Terminal::Table.new do |t|
   t.title = 'Problem 5.1.1'
@@ -112,15 +61,76 @@ problem_5_2 = Terminal::Table.new do |t|
   t << ['modular aritmetic', axiom_1.holds?(domain, func, modular_aritmetic, valudation), axiom_2.holds?(domain, func, modular_aritmetic, valudation), axiom_3.holds?(domain, func, modular_aritmetic, valudation)]
 end
 
-puts problem_4_1
-puts """I used a similar approach in my pencil-and-paper derivations
-first subtitude the entails a |= b with a /\\ ~b and then check this statement
-on unsatisfiability.
+puts """
+Problem 5.1.1
+
+Represent the signature definition F (and its arities) in Problem 5.1.1. Note
+that a constant is defined as a function with no argument. Next, implement
+a function
+
+  wellformed_term :: Term ==> Signature ==> Bool
+
+which has a term and a signature as its arguments, and checks whether it is
+well-formed according to the signature or neot. The definition of whether a
+term t is well-formed with respect to signature sig is defined as follows:
+
+  (1.) A variable x is well-formed.
+  (2.) A term f(x_1,...,x_n) is well-formed if
+    (a.) Each term x_1,...,x_n is well-formed
+    (b.) There is a pair (s, m) in signature sig where s = t and n = m
+
+By using the definition of wellformedness above, check whether each expression
+in the Problem 5.1.1. is well-formed or not. Note that you need to use 
+parset (String#to_term) instead of parse (String#to_formula) function.
+Check your answer with the pencil-and-paper solutions.
+
+Answer:
+
+#{problem_5_1_1}
+
+Represent first the signature in Problem 5.1.2. Then, define a function
+
+  wellformed_form :: Formula Fol ==> Signature ==> Bool
+
+Which has a first-order formula and a signature as its argument,
+and checks whether it is well-formed according to the signature or not.
+The definition whether a formula is well-formed with respect to the signature
+sig is defined as follows:
+
+  (1.) Constant True and False are well-formed
+  (2.) Predicate p(x_1,...,x_n) is well-formed if
+    (a.) each term x_1,...,x_n is well-formed
+    (b.) There is a pair (q,m) in signature sig where q = p and n = m
+  (3.) p X q where X element {/\\,\\/,==>,<=>} is well-formed if p and q are 
+       well-formed
+  (4.) forall x.p and exsists x.p are well-formed if p is well-formed
+
+By using the definition of wellformedness above, check wheter each expression in
+the Problem 5.1.2. is well-formed or not. Check your answer with the prencil-
+and-paper derivation.
+
+Answer:
+
+#{problem_5_1_2}
+
+Problem 5.2
+
+In this part, we shall check mechanically whether an interpretation satisfies
+the equivalence relation's axiom or not. However, since the definiton can
+be used in the domain is finite, we set the domain for this programming exercise
+to be {0,1,...,23}
+
+  (1.) Parse first Axiom 1, 2, and 3 in Problem 5.2.
+  (2.) Implement the predicate for each possible mappings of predicate =.
+       That is, implement the function for empty, universal, equality, even sum,
+       and modular aritmetic relation.
+  (3.) Check for each possible mapping of predicate =, whether Axiom 1, 2, or 3
+       is true.
+
+Answer:
+
+#{problem_5_2}
+
+(c) Roman Podolski, Technische Universität München, January 2016
 """
-puts problem_4_2
-puts problem_4_3
-puts """This approach uses the entails functions to solve the puzzle,
-while in the exercise we substituded with the rules until clear statements were made."""
-puts problem_5_1_1
-puts problem_5_1_2
-puts problem_5_2
+

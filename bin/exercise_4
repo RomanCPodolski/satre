@@ -1,0 +1,120 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'satre'
+require 'terminal-table'
+
+include Satre
+
+problem_4_1_1 = 'false |= true'.to_formula 
+problem_4_1_2 = 'true |= false'.to_formula 
+problem_4_1_3 = '(A /\\ B) |= (A <=> B)'.to_formula 
+problem_4_1_4 = '(A <=> B) |= A \\/ B'.to_formula 
+problem_4_1_5 = '(A <=> B) |= ~A \\/ B'.to_formula 
+
+problem_4_2_1 = 'Smoke ==> Smoke'.to_formula 
+problem_4_2_2 = '(Smoke ==> Fire) ==> (~Smoke ==> ~Fire)'.to_formula 
+problem_4_2_3 = 'Smoke \\/ Fire \\/ ~Fire'.to_formula 
+problem_4_2_4 = '(Fire ==> Smoke) /\\ Fire /\\ ~Smoke'.to_formula 
+
+bsays = 'b <=> (a <=> ~a)'.to_formula
+csays = 'c <=> ~b'.to_formula
+
+kb = And.new(bsays, csays)
+
+a_is_knight = Entails.new(kb,'a'.to_formula)
+a_is_knave  = Entails.new(kb,'~a'.to_formula)
+b_is_knight = Entails.new(kb,'b'.to_formula)
+b_is_knave  = Entails.new(kb,'~b'.to_formula)
+c_is_knight = Entails.new(kb,'c'.to_formula)
+c_is_knave  = Entails.new(kb,'~c'.to_formula)
+
+problem_4_1 = Terminal::Table.new do |t|
+  t.title = 'Problem 4.1'
+  t.headings = ['', 'Formula', 'Result' ]
+  t << ['1.', problem_4_1_1, problem_4_1_1.eval ]
+  t << ['2.', problem_4_1_2, problem_4_1_2.eval ]
+  t << ['3.', problem_4_1_3, problem_4_1_3.eval ]
+  t << ['4.', problem_4_1_4, problem_4_1_4.eval ]
+  t << ['5.', problem_4_1_5, problem_4_1_5.eval ]
+end
+
+problem_4_2 = Terminal::Table.new do |t|
+  t.title = 'Problem 4.2'
+  t.headings = ['', 'Formula', 'tauntolgy?', 'satifiable?', 'unsatifiable?']
+  t << ['1.', problem_4_2_1, problem_4_2_1.tautology?, problem_4_2_1.satifiable?, problem_4_2_1.unsatifiable? ]
+  t << ['2.', problem_4_2_2, problem_4_2_2.tautology?, problem_4_2_2.satifiable?, problem_4_2_2.unsatifiable? ]
+  t << ['3.', problem_4_2_3, problem_4_2_3.tautology?, problem_4_2_3.satifiable?, problem_4_2_3.unsatifiable? ]
+  t << ['4.', problem_4_2_4, problem_4_2_4.tautology?, problem_4_2_4.satifiable?, problem_4_2_4.unsatifiable? ]
+end
+
+problem_4_3 = Terminal::Table.new do |t|
+  t.title = 'Problem 4.2'
+  t.headings = ['', 'a', 'b', 'c']
+  t << ['is knight?', a_is_knight.eval , b_is_knight.eval , c_is_knight.eval ]
+  t << ['is knave?', a_is_knave.eval , b_is_knave.eval , c_is_knave.eval ]
+end
+
+puts """Problem 4.1
+
+Use the function `entails` to check weher the following entailment is true or not.
+
+  (1.) #{problem_4_1_1}
+  (2.) #{problem_4_1_2}
+  (3.) #{problem_4_1_3}
+  (4.) #{problem_4_1_4}
+  (5.) #{problem_4_1_5}
+
+Question: Compare the output from your function and the result you obtain by
+using pencil-and-paper derivation. How differs the function from the approach
+we use in pencil-and-paper derivation?
+
+Solution:
+
+#{problem_4_1}
+
+I used a similar approach in my pencil-and-paper derivations
+first subtitude the entails a |= b with a /\\ ~b and then check this statement
+on unsatisfiability.
+
+Problem 4.2
+
+Use the function `tauntology`, `satisfiable`, `unsatifiable` to check wheter the
+following formulae is tauntology, satisfiable, or unsatifiable. Compare the out-
+put with the results form your pencil-and-paper derivation.
+
+  (1.) #{problem_4_2_1}
+  (2.) #{problem_4_2_2}
+  (3.) #{problem_4_2_3}
+  (4.) #{problem_4_2_4}
+
+Solution:
+
+#{problem_4_2}
+
+Problem 4.3
+
+Represent what B says with your parser.
+
+  bsays = parse 'b <=> (a <=> ~a)'
+
+where parse is ypur parser implementation. Do the same with what C says.
+
+  csays = parse 'c <=> ~b'
+
+Construct a knowledge base - kb of type Formula - by performing conjunction
+of what B and C says. By using the function entails, check wheter the knowledge-
+base entails wheter A is a knight. Check also whether it entails whether A is a
+knave. Perfom these checks for B and C as well.
+
+Question: Check your answer about what B and C are with the answer from pencil-
+and paper derivation in exercise. Can you decide what A is? Is it true that if 
+KB \= alpha, then it must be that KB |= ~alpha? Explain your answer.
+
+Solution:
+
+#{problem_4_3}
+
+This approach uses the entails functions to solve the puzzle,
+while in the exercise we substituded with the rules until clear statements were made.
+"""
