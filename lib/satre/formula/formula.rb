@@ -11,16 +11,8 @@ module Satre
     end
 
     def on_all_valuations?
-      valudation = Hash[self.atoms.map { |x| [x, true] }]
-      truthtable = [valudation]
-      valudation.length.times do |i|
-        v = {}
-        (valudation.length - i).times do |j| 
-          v = valudation.dup
-          v[v.keys[j]] = ! v[v.keys[j]]
-          truthtable << v
-        end
-        valudation = v
+      truthtable = [true, false].repeated_permutation(self.atoms.size).map do |args|
+        self.atoms.zip(args).to_h
       end
       truthtable.all? { |v| self.eval(v) }
     end

@@ -17,10 +17,7 @@ problem_4_2_2 = '(Smoke ==> Fire) ==> (~Smoke ==> ~Fire)'.to_formula
 problem_4_2_3 = 'Smoke \\/ Fire \\/ ~Fire'.to_formula 
 problem_4_2_4 = '(Fire ==> Smoke) /\\ Fire /\\ ~Smoke'.to_formula 
 
-bsays = 'b <=> (a <=> ~a)'.to_formula
-csays = 'c <=> ~b'.to_formula
-
-kb = And.new(bsays, csays)
+kb = 'b <=> (a <=> ~a) /\\ c <=> ~b'.to_formula
 
 a_is_knight = Entails.new(kb,'a'.to_formula)
 a_is_knave  = Entails.new(kb,'~a'.to_formula)
@@ -108,7 +105,8 @@ base entails wheter A is a knight. Check also whether it entails whether A is a
 knave. Perfom these checks for B and C as well.
 
 Question: Check your answer about what B and C are with the answer from pencil-
-and paper derivation in exercise. Can you decide what A is? Is it true that if 
+and paper derivation in exercise.
+Can you decide what A is? Is it true that if 
 KB \= alpha, then it must be that KB |= ~alpha? Explain your answer.
 
 Solution:

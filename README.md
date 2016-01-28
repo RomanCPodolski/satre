@@ -53,8 +53,7 @@ An example
 ```ruby
 formula = '(Fire ==> Smoke) /\\ Fire /\\ ~Smoke'.to_formula 
 ```
-For more examples check [bin/exercise](https://github.com/RomanCPodolski/satre/blob/master/bin/exercise)
-To evaluate a formula use `Satre::Formula#eval`
+For more examples check [bin/exercise_4](https://github.com/RomanCPodolski/satre/blob/master/bin/exercise_4) and [bin/exercise_5](https://github.com/RomanCPodolski/satre/blob/master/bin/exercise_5) To evaluate a formula use `Satre::Formula#eval`
 
 ```ruby
 formula = '(Fire ==> Smoke) /\\ Fire /\\ ~Smoke'.to_formula 
